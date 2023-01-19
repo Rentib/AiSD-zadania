@@ -1,0 +1,98 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{enumerate}
+\usepackage{nopageno} % usuwa numery stron
+\usepackage[margin=.5in]{geometry} % zmniejsza margines
+\usepackage{fouriernc} % śmieszna czcionka
+\usepackage{algpseudocode}
+
+\newcommand{\MBBR}{\mathbb{R}}
+\newcommand{\MBBZ}{\mathbb{Z}}
+\newcommand{\MBBN}{\mathbb{N}}
+\newcommand{\MBBC}{\mathbb{C}}
+\newcommand{\MBBK}{\mathbb{K}}
+\newcommand{\MBBQ}{\mathbb{Q}}
+\newcommand{\MCALO}{\mathcal{O}}
+
+\newcounter{zadanie}
+\newcommand{\zadanie}{\addtocounter{zadanie}{1}\section*{Zadanie \arabic{zadanie}}}
+
+\title{Egzamin 2018-19}
+\author{Stanisław Bitner}
+\date{\today}
+
+\begin{document}
+\maketitle
+\zadanie{}
+Do rozwiązania zadania użyjemy drzewa splay wzbogaconego o wielkości poddrzew.
+Na początek sortujemy wszystkie przedziały po ich końcach. Niestety nie ma
+ograniczenia na ich współrzędne, więc nie możemy tego zrobić liniowo. Następnie
+idziemy po kolei po końcach przedziałów. Gdy napotkamy przedział czerwony,
+dodajemy jego początek do drzewa splay. Gdy napotkamy przedział biały, dodajemy
+do wyniku liczbę wartości w drzewie nie mniejszych niż początek tego
+przedziału. Jako że do drzewa dodajemy tylko zakończone, czerwone przedziały,
+to mamy pewność, że całkowicie się one zawierają, jeśli tylko ich początek jest
+większy od początku białego przedziału. Złożoność: $\MCALO((n+m)\log{(n+m)})$.
+
+\zadanie{}
+Fakt z podstawówki: $3 \mid x \iff 3 \mid $ suma cyfr $x$.
+\subsection*{(a)}
+Tworzymy $3$-elementową tablicę $\mathit{pref}$, w której będziemy zapisywać
+ile do tej pory było prefiksów przystających do $i$ modulo $3$. Zaczynamy
+z pustym słowem, więc $pref[0] \gets 1$. Gdy przechodzimy do następnego
+prefiksu, to dodajemy do globalnego licznika tyle ile do tej pory było
+prefiksów przystających do obecnego prefiksu modulo $3$. Możemy tak zrobić,
+ponieważ $x[1..j] \equiv_3 x[1..i] \implies x[j+1..i] \equiv_3 0$.\\
+Złożoność: $\MCALO(|x|)$
+
+\begin{algorithmic}
+
+\Function{Podzielne}{x}
+  \State $pref[3] \gets {1,0,0}, curr \gets 0, res \gets 0$
+  \For{$i := 1..n$}
+    \State $curr \gets (curr + x[i]) mod 3$
+    \State $res \gets res + pref[curr]$
+    \State $pref[curr] \gets pref[curr] + 1$
+  \EndFor
+\EndFunction
+
+\end{algorithmic}
+
+\subsection*{(b)}
+Postępujemy podobnie jak ostatnio, ale zapamiętujemy najmniejszy i największy
+indeks dla każdego $i\in\{0,1,2\}$ (przystawanie modulo $3$). Otrzymujemy
+w ten sposób pary $(i,j)$ oznaczające, że $x[i+1..j] \equiv_3 0$. Z par trzeba
+usunąć jeszcze zera wiodące, co robimy liniowo. Wynikiem będzie para
+o największej różnicy $j-i$. W przypadku remisów porównujemy te słowa
+leksykograficznie (będą co najwyżej $2$ porównania. Złożoność: $\MCALO(|x|)$.
+
+\subsection*{(c)}
+
+\zadanie{}
+Strukturą, jakiej użyjemy będzie drzewo AVL wzbogacone o następujące atrybuty:
+\begin{itemize}
+  \item $bmax,cmax$ -- największy element dla obu kolorów;
+  \item $bmin,cmin$ -- najmniejszy element dla obu kolorów;
+  \item $res$ -- wynik dla poddrzewa.
+\end{itemize}
+Dla każdego wierzchołka $max, min$ można trywialnie obliczać na podstawie jego
+wartości i wartości w jego synach. $res$ można obliczać biorąc najmniejszą
+wartość spośród $l.res, r.res$ oraz różnice $r.bmin - w, w - l.bmax$, jeśli
+wierzchołek jest czerwony, lub $r.cmin - w, w - l.cmax$, jeśli jest biały ($w$
+to wartość wierzchołka). Jako że atrybuty można utrzymywać na podstawie
+atrybutów dzieci, to nie ma problemu z rotacjami.
+Złożoności:
+\begin{itemize}
+  \item $\mathit{Insert}$ -- $\MCALO(\log{n})$
+  \item $\mathit{Delete}$ -- $\MCALO(\log{n})$
+  \item $\mathit{Gap}$ -- $\MCALO(1)$ -- czytamy wynik korzenia
+\end{itemize}
+
+\zadanie{}
+
+
+\end{document}
