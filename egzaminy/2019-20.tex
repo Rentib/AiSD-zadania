@@ -69,7 +69,7 @@ użyć lekko zmodyfikowanego algorytmu KMP.
     \State $p[n] = \{0..0\}$
     \For{$i=1..n-1$}
       \State $j \gets p[i-1]$
-      \While{$j>0 \land \frac{s[i]}{s[j]} = \frac{s[i-1]}{s[j-1]}$}
+      \While{$j>0 \land \frac{s[i]}{s[j]} \neq \frac{s[i-1]}{s[j-1]}$}
         \State $j \gets p[j-1]$
       \EndWhile
       \If{$\frac{s[i]}{s[j]} = \frac{s[i-1]}{s[j-1]}$}
