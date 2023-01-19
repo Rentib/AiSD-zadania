@@ -1,0 +1,86 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{enumerate}
+\usepackage{nopageno} % usuwa numery stron
+\usepackage[margin=.5in]{geometry} % zmniejsza margines
+\usepackage{fouriernc} % śmieszna czcionka
+\usepackage{algpseudocode}
+
+\newcommand{\MBBR}{\mathbb{R}}
+\newcommand{\MBBZ}{\mathbb{Z}}
+\newcommand{\MBBN}{\mathbb{N}}
+\newcommand{\MBBC}{\mathbb{C}}
+\newcommand{\MBBK}{\mathbb{K}}
+\newcommand{\MBBQ}{\mathbb{Q}}
+\newcommand{\MCALO}{\mathcal{O}}
+
+\newcounter{zadanie}
+\newcommand{\zadanie}{\addtocounter{zadanie}{1}\section*{Zadanie \arabic{zadanie}}}
+
+\title{Egzamin 2019/20}
+\author{Stanisław Bitner}
+\date{\today}
+
+\begin{document}
+\maketitle
+\zadanie{}
+\subsection*{(a)}
+Niech $p$ -- liczba permutacji spełniających $a<b \land c<d$. Zauważmy, że
+6-permutacji takich, że $a<b$ jest $\frac{6!}{2}$, gdyż warunek jest spełniony
+w połowie z wszystkich permutacji. Gdy spojrzymy na permutacje spełniające
+$a<b$, to połowa z nich spełnia też $c<d$, zatem $p = \frac{6!}{4}$. Minimalna
+liczba porównań to $\lceil\log_2{p}\rceil = 8$. \qed
+
+\subsection*{(b)}
+Najprościej będzie scalić elementy $a,b,c,d$ wykonując $3$ porównania,
+a następnie użyć wyszukiwania binarnego, aby wstawić elementy $e, f$, wykonując
+kolejno $2$ i $3$ porównania. To daje razem $8$ porównań.
+
+\zadanie{}
+\subsection*{(a)}
+Dla DFS-drzewa największa wysokość to oczywiście $n-1$ ($C_n$). Nie można
+osiągnąć większej, gdyż drzewo DFS ma $n-1$ krawędzi.\\
+Dla BFS-drzewa jest to $\lfloor\frac{n}{2}\rfloor$. Czemu? Należy przy tym podkreślić,
+że jest to wynik w grafie bez krawędzi wtórnych.
+
+\subsection*{(b)}
+Dla DFS-drzewa najmniejsza wynik, to $\lfloor\frac{n}{2}\rfloor$. Czemu?\\
+Dla BFS-drzewa jest to $1$ ($K_n$). Nie może być mniej, bo $n>2$ i trzeba dojść
+do każdego wierzchołka.
+
+\subsection*{(c)}
+Aby sprawdzić, czy istnieje zamknięta marszruta o nieparzystej długości,
+wystarczy sprawdzić, czy graf jest dwudzielny. Jeśli nie jest, to taka
+marszruta musi istnieć.\\
+Aby ją znaleźć, wystarczy użyć dowolnego algorytmu znajdującego nieparzysty
+cykl, na przykład tego używającego kolorowania.
+
+\newpage\zadanie{}
+Przypuśćmy, że $n>1$, w przeciwnym przypadku, problem jest trywialny. Wystarczy
+użyć lekko zmodyfikowanego algorytmu KMP.
+\begin{algorithmic}
+
+  \Function{Podobne}{$(x)_n,(y)_m$}
+    \State $s \gets (x)_n + \infty + (y)_m$
+    \State $p[n] = \{0..0\}$
+    \For{$i=1..n-1$}
+      \State $j \gets p[i-1]$
+      \While{$j>0 \land \frac{s[i]}{s[j]} = \frac{s[i-1]}{s[j-1]}$}
+        \State $j \gets p[j-1]$
+      \EndWhile
+      \If{$\frac{s[i]}{s[j]} = \frac{s[i-1]}{s[j-1]}$}
+        \State $j \gets j + 1$
+      \EndIf
+      \State $p[i] \gets j$
+    \EndFor
+  \EndFunction
+
+\end{algorithmic}
+Jeżeli $p[i]$ jest równe $n$, to $i$ jest końcem jednego z podobnych spójnych podciągów.
+Skoro chcemy wyznaczyć początki podciągów, to wystarczy odejmować $n-1$ od tych indeksów.
+
+\end{document}

@@ -1,0 +1,111 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{enumerate}
+\usepackage{nopageno} % usuwa numery stron
+\usepackage[margin=.5in]{geometry} % zmniejsza margines
+\usepackage{fouriernc} % śmieszna czcionka
+\usepackage{algpseudocode}
+
+\newcommand{\MBBR}{\mathbb{R}}
+\newcommand{\MBBZ}{\mathbb{Z}}
+\newcommand{\MBBN}{\mathbb{N}}
+\newcommand{\MBBC}{\mathbb{C}}
+\newcommand{\MBBK}{\mathbb{K}}
+\newcommand{\MBBQ}{\mathbb{Q}}
+\newcommand{\MCALO}{\mathcal{O}}
+
+\title{Egzamin 2020/21}
+\author{Stanisław Bitner}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Zadanie 1}
+\subsection*{(a)}
+W drzewie każdy wierzchołek jest kliką, zatem największa liczba klik to $n$.
+W szczególności cały graf może być kliką, więc najmniejsza liczba klik to $1$.
+
+\subsection*{(b)}
+W $K_n \approx n^2$, a jak $a_1 + ... + a_{100} = s$, gdzie $s$ jest ustalone,
+to $\sum_{i=1}^{100} a_i^2$ jest największa, gdy jedna liczba jest bardzo duża
+a pozostałe małe, natomiast najmniejsza jest, gdy wszystkie są mniej więcej
+takie same.\\ Zatem największa liczba krawędzi, będzie dla $K_{2021-99}$ i $99$
+krawędzi, co daje $\binom{2021}{2} + 99$.\\ Najmniejsza zaś będzie, gdy kliki
+będą zbliżone rozmiarem, a zatem\\ $\sum_{i=1}^{21} \binom{21}{2}
++ \sum_{i=22}^{100} \binom{20}{2} = 21\cdot \binom{21}{2} + 79 \cdot
+\binom{20}{2}$.
+
+\subsection*{(c)}
+Są dwie możliwości wyboru korzenia drzewa. Może być to punkt artykulacji lub
+nie. W drugim przypadku wszystkie wybory są symetryczne.\\ Zajmijmy się
+najpierw pierwszym przypadkiem -- gdy wejdziemy do którejś z klik, musimy ją
+całą obejść, gdyż jedyny punkt artykulacji w grafie jest już odwiedzony
+(korzeń). To oznacza, że drzewo DFS, jakie otrzymamy, będzie składało się
+z korzenia i dwóch ścieżek długości $9$. To daje nam $2 \cdot (9!)^2$
+możliwości DFS-numerowania.\\ W drugim przypadku jest inaczej. Zaczynamy
+z dowolnego wierzchołka w grafie, dochodzimy do punktu artykulacji w $r \le 9$
+ruchach. Jeśli $r=9$, to idziemy do drugiej z klik, w przeciwnym przypadku
+wybieramy, do której wejdziemy. To daje nam $1 \cdot 8! \cdot 1 \cdot 9!$ dla
+$r=9$ i $\sum_{r=1}^8 (r-1)! \cdot 2 \cdot (9 - r)! \cdot 9!$.\\ W sumie
+dostajemy $2 \cdot (9!)^2 + 8! \cdot 9! + \sum_{r=1}^8 (r-1)! \cdot 2 \cdot (9
+- r)! \cdot 9!$ możliwe DFS-numerowania.
+
+\subsection*{(d)}
+Bez sensu to zadanie, bo $|F| = \MCALO(n^2)$.
+
+\newpage\section*{Zadanie 2}
+Do rozwiązania tego zadania użyjemy struktury zbiorów rozłącznych.\\ Aby łatwo
+odpowiadać na zapytania o zbalansowane składowe, będziemy przechowywać ich
+globalny licznik $ile$ (początkowo równy $n$). Co więcej, struktury zbiorów
+wzbogacamy o następujące atrybuty:
+\begin{itemize}
+  \item $\mathit{b}$ -- liczba białych wierzchołków w spójnej
+  \item $\mathit{c}$ -- liczba czerwonych wierzchołków w spójnej
+\end{itemize}
+Atrybuty te należy w odpowiedni sposób aktualizować podczas funkcji
+$\mathit{Kolor}$ oraz $\mathit{Dodaj}$ tak, aby licznik oraz każdy reprezentant
+zbioru zawsze miał aktualne informacje. Złożoności: 
+\begin{itemize}
+  \item $\mathit{Kolor}$ -- $\MCALO(\alpha(n))$
+  \item $\mathit{Dodaj}$ -- $\MCALO(\alpha(n))$
+  \item $\mathit{ZbalansowaneSkladowe}$ -- $\MCALO(1)$
+\end{itemize}
+Należy przy tym pamiętać, że gdy graf stanie się spójny, wszystkie operacje
+będą wykonywane w czasie stałym.
+
+\section*{Zadanie 3}
+\subsection*{(a)}
+Łatwo spałować sumami prefiksowymi i drzewem przedziałowym
+w $\MCALO(n\log{n})$.
+
+\subsection*{{(b)}}
+Najpierw zajmijmy się najmniejszą sumą. Zauważmy, że nie może być ona mniejsza
+niż $k-1$, gdyż jeśli pierwsza litera pojawia się w słowie $k$ razy. Można
+łatwo osiągnąć taką sumę tworząc na przykład słowo $dik..ki..is..sd..d$.
+Wszystkie elementy poza ostatnimi $k-1$ będą miały wartość $0$, natomiast te
+ostatnie będą miały wartości $1$, do daje sumę $k-1$.\\ Największa suma będzie
+na przykład dla słowa $\{diks\}^{k}$ i będzie ona równa $\frac{1 + (n-4)}{2}
+\cdot (n-4) = \binom{n-3}{2}$. Pierwsze $4$ elementy tablicy będą miały
+wartości $0$ natomiast kolejne będą miały wartości $1,2,..,n-4$. Nie da się więcej, bo
+są $4$ różne elementy.
+
+\section*{Zadanie 4}
+Sortujemy współrzędne wierzchołków i skalujemy je do liczb $1..n$ (osobno $x$
+i $y$). Relacje przecinania są w ten sposób zachowane. Następnie stosujemy
+technikę zamiatania -- idziemy od lewej do prawej, gdy napotykamy lewy koniec
+poziomego odcinka dodajemy jego $y$ do drzewa przedziałowego, gdy napotykamy
+prawy koniec, to usuwamy. Gdy napotkamy odcinek pionowy, to liczba odcinków,
+z którymi tworzy przecięcie jest równa sumie na przedziale $[y_1,y_2]$ tego
+odcinka. Jeśli jest ona nie mniejsza niż dotychczasowe maksimum, to
+aktualizujemy je. Analogicznie robimy od góry do dołu. Następnie tworzymy pustą
+listę i powtarzamy zamiatanie, przy czym tym razem nie aktualizujemy wyniku,
+tylko dodajemy numer takiego odcinka na listę. Ostatecznym wynikiem jest w ten
+sposób uzyskana lista. Złożoność: $\MCALO(n\log{n})$ -- sortowanie i operacje
+drzewowe powtarzane $n$-krotnie.
+
+\end{document}

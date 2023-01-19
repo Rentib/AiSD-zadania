@@ -1,0 +1,126 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{enumerate}
+\usepackage{nopageno} % usuwa numery stron
+\usepackage[margin=.5in]{geometry} % zmniejsza margines
+\usepackage{fouriernc} % śmieszna czcionka
+\usepackage{listing}
+\usepackage{algpseudocode}
+
+\newcommand{\MBBR}{\mathbb{R}}
+\newcommand{\MBBZ}{\mathbb{Z}}
+\newcommand{\MBBN}{\mathbb{N}}
+\newcommand{\MBBC}{\mathbb{C}}
+\newcommand{\MBBK}{\mathbb{K}}
+\newcommand{\MBBQ}{\mathbb{Q}}
+\newcommand{\MCALO}{\mathcal{O}}
+
+\title{Egzamin 2021/22}
+\author{Stanisław Bitner}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Zadanie 1}
+Dla wygody przypuśćmy, że liczba jest postaci $\sum_{i=1}^n s_i \cdot 2^i$, czyli że
+bity mniej znaczące są po lewej stronie. Jeśli nie może tak być, to wystarczy odwrócić cały napis.
+\subsection*{(a)}
+Zauważmy, że
+\begin{align*}
+  3 \mid s[k..i] \iff 3 \mid 2^{k-1} \cdot s[k..i] \iff 3 \mid s[1..i] - s[1..k-1]
+  \iff s[1..i] \equiv_3 s[1..k-1].
+\end{align*}
+Z tego wynika, że aby zliczyć liczbę podsłów podzielnych przez 3, kończących się w $i$ wystarczy
+obliczyć liczbę prefiksów $s[1..j]$ słowa $s[1..i]$ takich, że $s[1..j] \equiv_3 s[1..i]$.
+Warto również zauważyć, że $2^k\equiv_3 (-1)^k$, to pozwala uniknąć operacji na dużych liczbach.
+Złożoność: $\MCALO(n)$.
+
+\begin{algorithmic}
+\State $res \gets 0, m \gets 1, sum \gets 0, p[3] \gets \{1,0,0\}$
+\For{$i := 1..n$}
+  \State $sum \gets (sum + s[i] \cdot m) \mod 3$
+  \State $res \gets res + p[sum]$
+  \State $p[sum] \gets p[sum] + 1$
+  \State $m \gets -m$
+\EndFor
+\end{algorithmic}
+
+\subsection*{(b)}
+Do rozwiązania użyjemy wzbogaconego drzewa splay.
+Wstawianie i usuwanie elementów można zrobić, dodając do wierzchołków informacje
+o rozmiarze ich poddrzew. Do wierzchołków dodamy również informacje o liczbie podsłów
+podzielnych przez 3 w ich poddrzewach oraz krotnościach właściwych prefiksów i sufiksów przystających
+do $0,1,2 \mod 3$.\\
+Zawartość wierzchołka --
+$\{$ klucz, rozmiar (poddrzewa), wynik, pre[3], suf[3] $\}$.
+Przy tak zdefiniowanym drzewie pierwsze 2 polecenia wykonujemy w złożoności
+$\MCALO(\log{n})$, natomiast odpowiedzi na zapytanie \textit{Podzielne3} mamy
+w $\MCALO(1)$.\\ Wartości $pre, suf$ i $wynik$ można wyliczać na podstawie
+klucza w wierzchołku i wartości w jego synach, więc nie ma problemu
+z rotacjami. Należy przy tym pamiętać, że obliczając wartości, może zmienić się
+parzystość indeksów prawego poddrzewa; wówczas należy zamieniać wartości
+przystające z $1$ z wartościami przystającymi do $-1$ ($2^n\equiv_3 -1$).
+
+\subsection*{(c)}
+Liczba jest podzielna przez $4$, gdy jej pierwsze $2$ bity to zera
+(założyliśmy, że najmniej znaczące są z lewej strony).
+Wystarczy wyliczyć liczbę różnych podsłów $00\{1,0\}^*1$.
+Wyliczamy drzewo sufiksowe dla słowa $s$ -- odpowiedzią będzie liczba krawędzi w poddrzewie $00$.
+Złożoność: $\MCALO(n)$.
+
+\section*{Zadanie 2}
+\subsection*{(a)}
+Wyznaczamy te dwie różne liczby (liniowo przechodząc po tablicy i na przykład porównując dwie sąsiednie).
+Mapujemy jedną do $1$ drugą do $-1$. Teraz naszym zadaniem jest znaleźć najdłuższy spójny podciąg
+o sumie $0$. Zauważmy, że suma każdego podciągu jest nie większa niż $n$. Możemy więc zapisać
+dla każdego $k \in \{1..n\}$ najmniejszy oraz największy indeks $i$ taki, że $\sum_{i}^k mapped(a[i]) = k$.
+Następnie wynikiem będzie para indeksów przypisanych sumie $k$ o największej różnicy.
+Przy czym taki algorytm zwraca parę $(i-1, j)$, więc w ostatecznym wyniku należy pamiętać o zwiększeniu
+o $1$ mniejszego z indeksów.
+Złożoność: $\MCALO(n)$.
+
+\subsection*{(b)}
+Każdy prefiks takiego ciągu reprezentujemy jako krotkę $(a, b, c)$, mającą
+w sobie krotności kolejnych liczb. Następnie każdy prefiks utożsamiamy z krotką
+$k_i = (a-b, a-c, i)$, gdzie $i$ to długość prefiksu. Sortujemy te krotki
+leksykograficznie, będzie to liniowe, gdyż $a-b, a-c, i \in [-n, n]$. Teraz
+w każdej klasie krotek, wyznaczonej przez $2$ pierwsze elementy, szukamy
+najmniejszego i największego indeksu (wystarczy liniowo, bo i tak każdą krotkę
+sprawdzimy raz). Wynikiem będzie para ($i_min + 1, j_max$) taka, że $i$ oraz
+$j$ są z jednej klasy i ich różnica jest największa.
+
+\section*{Zadanie 3}
+
+Użyjemy struktury zbiorów rozłącznych. Spójny graf posiada oczywiście cykl Eulera $\iff$ stopień
+każdego wierzchołka jest parzysty. Zaczynamy z lasem drzew jedno-wierzchołkowych i globalnym licznikiem
+spójnych Eulerowskich ustawionym na $n$. EulerCyc będzie po prostu zwracał ten licznik.
+\begin{algorithmic}
+\State $euler \gets n, deg[n] \gets {0,..,0}, dsudeg[n] \gets {0,..,0}$
+\Function{Dodaj}{$u,v$}
+\State $pu \gets Find(u)$
+\State $pv \gets Find(v)$
+\State $euler \gets euler - [dsudeg[pu][1] = 0] - [dsudeg[pv][1] = 0]$
+\State $dsudeg[pu][deg[u]] -= 1$
+\State $dsudeg[pv][deg[v]] -= 1$
+\State $deg[u] \gets 1 - deg[u]$
+\State $deg[v] \gets 1 - deg[v]$
+\State $dsudeg[pu][deg[u]] += 1$
+\State $dsudeg[pv][deg[v]] += 1$
+\State $Union(u, v)$
+\State $rep \gets Find(v)$
+\State $dsudeg[rep] = dsudeg[pu] + dsudeg[pv]$
+\State $euler \gets euler + [dsudeg[rep][1] = 0]$
+\EndFunction
+\end{algorithmic}
+Dla każdego zbioru podtrzymujemy jego liczbę wierzchołków o stopniach parzystych oraz nieparzystych.
+Żeby było łatwiej jako stopień wierzchołka trzymamy tylko wynik modulo $2$.
+Złożoność: $\MCALO(n\alpha(n))$.
+
+\section*{Zadanie 4}
+
+\end{document}
