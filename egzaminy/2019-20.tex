@@ -36,9 +36,7 @@ $a<b$, to połowa z nich spełnia też $c<d$, zatem $p = \frac{6!}{4}$. Minimaln
 liczba porównań to $\lceil\log_2{p}\rceil = 8$. \qed
 
 \subsection*{(b)}
-Najprościej będzie scalić elementy $a,b,c,d$ wykonując $3$ porównania,
-a następnie użyć wyszukiwania binarnego, aby wstawić elementy $e, f$, wykonując
-kolejno $2$ i $3$ porównania. To daje razem $8$ porównań.
+% TODO:
 
 \zadanie{}
 \subsection*{(a)}
@@ -51,6 +49,7 @@ Dla BFS-drzewa jest to $\lfloor\frac{n}{2}\rfloor$. Czemu? Należy przy tym podk
 Dla DFS-drzewa najmniejsza wynik, to $\lfloor\frac{n}{2}\rfloor$. Czemu?\\
 Dla BFS-drzewa jest to $1$ ($K_n$). Nie może być mniej, bo $n>2$ i trzeba dojść
 do każdego wierzchołka.
+% TODO:
 
 \subsection*{(c)}
 Aby sprawdzić, czy istnieje zamknięta marszruta o nieparzystej długości,
@@ -82,5 +81,8 @@ użyć lekko zmodyfikowanego algorytmu KMP.
 \end{algorithmic}
 Jeżeli $p[i]$ jest równe $n$, to $i$ jest końcem jednego z podobnych spójnych podciągów.
 Skoro chcemy wyznaczyć początki podciągów, to wystarczy odejmować $n-1$ od tych indeksów.
+
+\zadanie{}
+% TODO:
 
 \end{document}
