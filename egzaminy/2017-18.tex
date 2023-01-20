@@ -1,0 +1,101 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{enumerate}
+\usepackage{nopageno} % usuwa numery stron
+\usepackage[margin=.5in]{geometry} % zmniejsza margines
+\usepackage{fouriernc} % śmieszna czcionka
+\usepackage{algpseudocode}
+
+\newcommand{\MBBR}{\mathbb{R}}
+\newcommand{\MBBZ}{\mathbb{Z}}
+\newcommand{\MBBN}{\mathbb{N}}
+\newcommand{\MBBC}{\mathbb{C}}
+\newcommand{\MBBK}{\mathbb{K}}
+\newcommand{\MBBQ}{\mathbb{Q}}
+\newcommand{\MCALO}{\mathcal{O}}
+
+\newcounter{zadanie}
+\newcommand{\zadanie}{\addtocounter{zadanie}{1}\section*{Zadanie \arabic{zadanie}}}
+
+\title{Egzamin 2017/18}
+\author{Stanisław Bitner}
+\date{\today}
+
+\begin{document}
+\maketitle
+\zadanie{}
+Przechodzimy po wszystkich odcinkach i dodajemy punkty do nich należące na
+listę. Odcinki są równoległe do osi układów współrzędnych, więc jest to bardzo
+łatwe. Takich punktów jest dokładnie $11n$. Następnie sortujemy te punkty
+leksykograficznie i zliczamy te, które występują co najmniej $2$ razy.
+Złożoność: $\MCALO(n)$.
+
+\zadanie{}
+\subsection*{(a)}
+% TODO:
+
+\subsection*{(b)}
+% TODO:
+
+\subsection*{(c)}
+Sortujemy kubełkowo przedziały po pierwszej współrzędnej. Zauważmy, że jeśli
+$v$ jest odwiedzony, to $v-1$ może być odwiedzony w najgorszym przypadku w tej
+samej liczbie ruchów. Zapisujemy informacje o wierzchołkach rzeczywiście odwiedzonych
+oraz tych, do których możemy dojść w jednym ruchu.
+\begin{algorithmic}
+
+  \State $res \gets 0, vis \gets 1, can \gets 0$
+  \For{$p\in J$}
+    \If{$p.first \le vis$}
+      \State $can \gets \max\{can, p.second\}$
+    \Else
+      \State $res \gets res+1$
+      \State $vis \gets can$
+    \EndIf
+  \EndFor
+  \If{$can > vis$}
+    \State $res \gets res + 1$
+  \EndIf
+
+\end{algorithmic}
+Warto podkreślić, że takie rozwiązanie zakłada spójność grafu.
+
+\subsection*{(d)}
+Jeden przedział tworzy oczywiście klikę. Przedziały $(a,b), (c,d)$ takie, że
+mają co najmniej $2$ punkty wspólne oczywiście są w jednej dwuspójnej.
+Sortujemy przedziały po pierwszej współrzędnej. Łączymy przedziały $i,i+1$,
+które mają co najmniej $2$ punkty wspólne, lub $1$ z nich całkowicie zawiera
+się w drugim. Wynikiem będzie liczba pozostałych przedziałów.
+
+\zadanie{}
+% TODO:
+
+\zadanie{}
+Wzbogacamy drzewo splay o następujące atrybuty
+\begin{itemize}
+  \item \textit{rozmiar} -- rozmiar poddrzewa
+  \item \textit{pierwszy} -- wartość pierwszego elementu w poddrzewie
+  \item \textit{ostatni} -- wartość pierwszego elementu w poddrzewie
+  \item \textit{lazy} -- ile mamy dodać do synów
+  \item \textit{inc} -- najdłuższy rosnący spójny podciąg poddrzewa
+  \item \textit{pre} -- najdłuższy rosnący prefiks
+  \item \textit{suf} -- najdłuższy rosnący sufiks
+\end{itemize}
+W drzewie będzie zachowany następujący niezmiennik: aktualna wartość będzie
+równa sumie wartości wierzchołka i atrybutów $\mathit{lazy}$ wszystkich jego
+przodków. Wszystkie atrybuty można w prosty sposób obliczać na podstawie
+atrybutów lewego i prawego syna oraz wartości wierzchołka, zatem nie ma
+problemu z rotacjami. Należy pamiętać, by podczas przeszukiwania spychać
+wartość $lazy$ do synów. Operacje $\mathit{Ini, Insert, Delete}$ często
+pojawiały się na ćwiczeniach. Operację $\mathit{Add}$ można wykonać funkcjami
+$\mathit{Split, Join}$: najpierw wydzielamy przedział $[i,j]$, następnie
+dodajemy do jego korzenia $e$ (do atrybutów $\mathit{lazy,pierwszy,ostatni}$
+i wartości), potem z powrotem łączymy przedziały. Operacja $\mathit{MaxInc}$
+polega po prostu na zwróceniu atrybutu $\mathit{inc}$ korzenia. Złożoności:
+$\mathit{MaxInc}: \MCALO(1)$, pozostałe: $\MCALO(\log{n})$.
+
+\end{document}
