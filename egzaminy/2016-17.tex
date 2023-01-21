@@ -1,0 +1,55 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{enumerate}
+\usepackage{nopageno} % usuwa numery stron
+\usepackage[margin=.5in]{geometry} % zmniejsza margines
+\usepackage{fouriernc} % śmieszna czcionka
+\usepackage{algpseudocode}
+
+\newcommand{\MBBR}{\mathbb{R}}
+\newcommand{\MBBZ}{\mathbb{Z}}
+\newcommand{\MBBN}{\mathbb{N}}
+\newcommand{\MBBC}{\mathbb{C}}
+\newcommand{\MBBK}{\mathbb{K}}
+\newcommand{\MBBQ}{\mathbb{Q}}
+\newcommand{\MCALO}{\mathcal{O}}
+
+\newcounter{zadanie}
+\newcommand{\zadanie}{\addtocounter{zadanie}{1}\section*{Zadanie \arabic{zadanie}}}
+
+\title{Egzamin 2016/17}
+\author{Stanisław Bitner}
+\date{\today}
+
+\begin{document}
+\maketitle
+\zadanie{}
+\subsection*{(a)}
+Będzie tylko jedno drzewo BFS. W każdym ruchu odwiedzamy $2$ kolejne
+wierzchołki. Z każdego z nich wychodzi po jednej krawędzi, do \textbf{różnych}
+nieodwiedzonych jeszcze wierzchołków. Można udowodnić indukcyjnie, ale chyba
+nie ma potrzeby.
+
+\subsection*{(b)}
+Niech $D_n$ będzie liczbą różnych drzew DFS dla $L_n$. Wtedy
+$D_n = D_{n-1} + D_{n-2} + D_{n-3}$.\\ $D = (1,1,2,4,7,13,24,44,81,149...)
+\implies D_{10} = 149$. Równanie rekurencyjne tak wygląda, ponieważ możemy albo
+skoczyć o $1$ i wtedy jest $D_{n-1}$, albo o $2$ i następnie w lewo
+($D_{n-3}$), lub w prawo ($D_{n-2}$).
+
+\subsection*{(c)}
+Robimy dynamika po wierzchołkach:
+$$\mathit{dp}[i] = \min\{\mathit{dp}[i-1] + w(i-1,i),\mathit{dp}[i-2] + w(i-2,i)\}.$$
+Zaczynamy od $\mathit{dp[1]=0, dp[2]=w(1,2)}$ i idziemy do kolejnych indeksów.
+Wynikiem będzie $\mathit{dp}[n]$. Aby wyznaczyć, które krawędzie należy wybrać
+w MST/MDR wystarczy przejść od $i=n$ do tyłu i brać krawędź użytą w optymalnym
+wyniku.
+
+\subsection*{(d)}
+% TODO:
+
+\end{document}
