@@ -1,0 +1,78 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{enumerate}
+\usepackage{nopageno} % usuwa numery stron
+\usepackage[margin=.5in]{geometry} % zmniejsza margines
+\usepackage{fouriernc} % śmieszna czcionka
+\usepackage{algpseudocode}
+
+\newcommand{\MBBR}{\mathbb{R}}
+\newcommand{\MBBZ}{\mathbb{Z}}
+\newcommand{\MBBN}{\mathbb{N}}
+\newcommand{\MBBC}{\mathbb{C}}
+\newcommand{\MBBK}{\mathbb{K}}
+\newcommand{\MBBQ}{\mathbb{Q}}
+\newcommand{\MCALO}{\mathcal{O}}
+
+\newcounter{zadanie}
+\newcommand{\zadanie}{\addtocounter{zadanie}{1}\section*{Zadanie \arabic{zadanie}}}
+
+\title{Egzamin 2015/16}
+\author{Stanisław Bitner}
+\date{\today}
+
+\begin{document}
+\maketitle
+\zadanie{}
+\subsection*{(a)}
+% TODO:
+
+\subsection*{(b)}
+% TODO: 
+
+\subsection*{(c)}
+$G$ jest eulerowski $\iff \forall_{v\in \{1..n\}} in[v] = out[v]$ oraz jest
+słabo spójny. Słabą spójność sprawdzamy jak w $(a)$. Znamy już stopnie wyjścia
+dla każdego wierzchołka, wystarczy więc obliczyć stopnie wejścia. Rozdzielamy
+końce przedziałów do odpowiednich kubełków. Następnie postępujemy według
+algorytmu.
+\begin{algorithmic}
+\State $ile \gets 0$
+\For{$i:=1..n$}
+  \State $ile \gets ile + inBucket[i]$
+  \State $in[v] \gets ile$
+  \State $ile \gets ile - outBucket[i]$
+\EndFor
+\end{algorithmic}
+Sprawdzamy liniowo, czy stopnie wejścia i wyjścia każdego wierzchołka są równe,
+jeśli tak, to graf jest eulerowski.
+
+\zadanie{}
+\subsection*{(a)}
+\begin{algorithmic}
+\State $p \gets 0$
+\For{$i:=1..n-1$}
+  \If{$a[i] > a[i+1]$}
+    \State $swap(a[i], a[i+1])$
+    \If{$p=1$}
+      \State \Return
+    \EndIf
+    \State $p \gets 1$
+  \EndIf
+\EndFor
+\end{algorithmic}
+Wykonamy co najwyżej $n-1 = 2015$ porównań, co jest liczbą minimalną, bo może
+być $0$ inwersji i wtedy trzeba sprawdzić, że rzeczywiście cały ciąg jest
+posortowany.
+
+\subsection*{(b)}
+% TODO:
+
+\zadanie{}
+% TODO:
+
+\end{document}
