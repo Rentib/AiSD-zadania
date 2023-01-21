@@ -68,11 +68,11 @@ przystające z $1$ z wartościami przystającymi do $-1$ ($2^n\equiv_3 -1$).
 
 \subsection*{(c)}
 Liczba jest podzielna przez $4$, gdy jej pierwsze $2$ bity to zera
-(założyliśmy, że najmniej znaczące są z lewej strony).
-Wystarczy wyliczyć liczbę różnych podsłów $00\{1,0\}^*1$.
-Wyliczamy drzewo sufiksowe dla słowa $s$ -- odpowiedzią będzie liczba krawędzi w poddrzewie $00$.
+(założyliśmy, że najmniej znaczące są z lewej strony). Wystarczy wyliczyć
+liczbę różnych podsłów $00\{1,0\}^*1$. Konstruujemy drzewo sufiksowe w taki
+sposób, że wagi krawędzi utożsamiamy z liczbą jedynek. Odpowiedzią jest suma
+waga krawędzi poddrzewa słowa $00$.
 Złożoność: $\MCALO(n)$.
-% TODO:
 
 \section*{Zadanie 2}
 \subsection*{(a)}
