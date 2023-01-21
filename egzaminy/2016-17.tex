@@ -52,4 +52,17 @@ wyniku.
 \subsection*{(d)}
 % TODO:
 
+\zadanie{}
+
+\zadanie{}
+Konstruujemy \textit{ROT} dla $x$ i \textit{SUF} dla $y$, a także wyznaczamy
+KMR na słowie $x \cdot y$. Następnie dla każdego różnego okresu $x$
+reprezentowanego jako indeks $i$ ($c_i = x[i..n] \cdot x[1..i-1]$) szukamy
+binarnie pierwszego leksykograficznie większego sufiksu $y$. Słowa można
+porównywać za pomocą struktury KMR w czasie stałym. Jeżeli pierwsze $|x|$
+elementów tego sufiksu jest równe $x$, to za pomocą na przykład statycznego
+drzewa przedziałowego wyznaczamy najdłuższy spójny podciąg sufiksów na prawo od
+znalezionego, których $lcp \ge |x|$ i dodajemy jego długość do wyniku.
+Złożoność: $\MCALO((|x|+|y|)\log{(|x|+|y|)})$.
+
 \end{document}
