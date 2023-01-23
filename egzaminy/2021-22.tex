@@ -71,7 +71,7 @@ Liczba jest podzielna przez $4$, gdy jej pierwsze $2$ bity to zera
 (założyliśmy, że najmniej znaczące są z lewej strony). Wystarczy wyliczyć
 liczbę różnych podsłów $00\{1,0\}^*1$. Konstruujemy drzewo sufiksowe w taki
 sposób, że wagi krawędzi utożsamiamy z liczbą jedynek. Odpowiedzią jest suma
-waga krawędzi poddrzewa słowa $00$.
+wag krawędzi poddrzewa słowa $00$.
 Złożoność: $\MCALO(n)$.
 
 \section*{Zadanie 2}
@@ -123,6 +123,17 @@ Dla każdego zbioru podtrzymujemy jego liczbę wierzchołków o stopniach parzys
 Złożoność: $\MCALO(n\alpha(n))$.
 
 \section*{Zadanie 4}
-% TODO:
+Jako że dodajemy coraz to większe klucze, to interesuje nas jedynie skrajnie
+prawa ścieżka. Jeśli istnieje na niej jakiś wierzchołek $v$ taki, że $B(v)=-1$
+i dla każdego potomka $v, B(v) = 0$, to po operacji $\mathit{Insert}$ musimy
+wykonać rotacje na wysokości $h(v)$. Po wykonaniu jej wszystkie wierzchołki,
+które były potomkami $v$ leżącymi na skrajnie prawej ścieżce, będą miały
+$B(u)=-1$. Zajmijmy się sumarycznym kosztem przejścia z pełnego drzewa
+binarnego o wysokości $h$, z jednym skrajnie prawym liściem, do pełnego drzewa
+binarnego o wysokości $h+1$. Oczywiście wykonamy $I_h = 2^h - 1$ operacji
+$\mathit{Insert}$. Sumaryczny koszt można wyrazić funkcją rekurencyjną $A_h
+= A_{h-1} + h + A_{h-1} = 2A_{h-1} + h \approx 3\cdot 2^h$. $\frac{A_h}{I_h}
+\approx 3$, zatem operacja $\mathit{Insert}$ ma średnią (zamortyzowaną)
+złożoność $\MCALO(1)$.
 
 \end{document}
