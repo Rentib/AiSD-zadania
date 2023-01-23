@@ -45,14 +45,17 @@ operacji.
 \subsection*{(a)}
 Dla DFS-drzewa największa wysokość to oczywiście $n-1$ ($C_n$). Nie można
 osiągnąć większej, gdyż drzewo DFS ma $n-1$ krawędzi.\\
-Dla BFS-drzewa jest to $\lfloor\frac{n}{2}\rfloor$. Czemu? Należy przy tym podkreślić,
-że jest to wynik w grafie bez krawędzi wtórnych.
+Dla BFS-drzewa jest to $\lfloor\frac{n}{2}\rfloor$. Między każdym $v \in V$,
+a $1$ istnieją co najmniej dwie wierzchołkowo rozłączne ścieżki. Z zasady
+szufladkowej Dirichleta musi istnieć ścieżka długości nie większej niż
+$\lfloor\frac{n}{2}\rfloor$.
 
 \subsection*{(b)}
-Dla DFS-drzewa najmniejsza wynik, to $\lfloor\frac{n}{2}\rfloor$. Czemu?\\
+Dla DFS-drzewa najmniejsza wynik, to $2$. Można to uzyskać dla grafu\\
+$G = \langle1..n, \{1,2\}\cup\{\{1,v\},\{v,2\} : 3\le v\le n\}\rangle$. Żaby
+było mniej, to $G$ musiałoby być gwiazdą, a gwiazda nie jest dwuspójna.\\
 Dla BFS-drzewa jest to $1$ ($K_n$). Nie może być mniej, bo $n>2$ i trzeba dojść
 do każdego wierzchołka.
-% TODO:
 
 \subsection*{(c)}
 Aby sprawdzić, czy istnieje zamknięta marszruta o nieparzystej długości,
