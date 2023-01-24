@@ -43,11 +43,7 @@ skoczyć o $1$ i wtedy jest $D_{n-1}$, albo o $2$ i następnie w lewo
 
 \subsection*{(c)}
 Robimy dynamika po wierzchołkach:
-$$\mathit{dp}[i] = \min\{\mathit{dp}[i-1] + w(i-1,i),\mathit{dp}[i-2] + w(i-2,i)\}.$$
-Zaczynamy od $\mathit{dp[1]=0, dp[2]=w(1,2)}$ i idziemy do kolejnych indeksów.
-Wynikiem będzie $\mathit{dp}[n]$. Aby wyznaczyć, które krawędzie należy wybrać
-w MST/MDR wystarczy przejść od $i=n$ do tyłu i brać krawędź użytą w optymalnym
-wyniku.
+% TODO:
 
 \subsection*{(d)}
 % TODO:
@@ -64,5 +60,6 @@ elementów tego sufiksu jest równe $x$, to za pomocą na przykład statycznego
 drzewa przedziałowego wyznaczamy najdłuższy spójny podciąg sufiksów na prawo od
 znalezionego, których $lcp \ge |x|$ i dodajemy jego długość do wyniku.
 Złożoność: $\MCALO((|x|+|y|)\log{(|x|+|y|)})$.
+% TODO:
 
 \end{document}
