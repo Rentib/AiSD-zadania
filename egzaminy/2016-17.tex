@@ -42,8 +42,19 @@ skoczyć o $1$ i wtedy jest $D_{n-1}$, albo o $2$ i następnie w lewo
 ($D_{n-3}$), lub w prawo ($D_{n-2}$).
 
 \subsection*{(c)}
-Robimy dynamika po wierzchołkach:
-% TODO:
+Niech $d_k$ będzie wagą MST obejmującego wierzchołki $1..k$, wtedy $d_1 = 0,
+d_2 = w(1,2)$,
+$$
+d_k = \min\begin{cases}
+        d_{k-1} + w(k,k-1)\\
+        d_{k-1} + w(k,k-2)\\
+        d_{k-2} + w(k,k-1) + w(k,k-2)\\
+      \end{cases}
+.
+$$
+Dla kolejnych $k$ od $2$ do $n$ wyznaczamy $d_k$. Waga MST będzie równa $d_k$.
+Aby wyznaczyć, które krawędzie wchodzą w skład MST idziemy od tyłu i bierzemy
+krawędzie, których waga została dodana w najlepszym wyniku.
 
 \subsection*{(d)}
 % TODO:
