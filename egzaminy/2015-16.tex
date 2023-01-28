@@ -28,31 +28,33 @@
 \begin{document}
 \maketitle
 \zadanie{}
+
+Do rozwiązania następujących podpunktów przyda nam się znajomość stopni wejścia
+i wyjścia wszystkich wierzchołków. Można je wyliczyć w czasie liniowym.
+Sortujemy przedziały wierzchołków kubełkowo po wartościach $l$. Przechodzimy
+liniowo od lewej do prawej -- stopień wejścia wierzchołka $i$ jest równy
+liczbie zaczętych i niezakończonych jeszcze przedziałów. Stopień wyjścia
+wierzchołka $v$, to $r[v] - l[v] + 1$. Odejmujemy jeszcze $1$ od każdego
+wierzchołka z pętlą ($l[v] \le v \le r[v]$).
+
 \subsection*{(a)}
-Aby graf był drzewem, musi być spójny (b), musi mieć dokładnie $1$ wierzchołek
-o stopniu wejścia $0$ i całą resztę ze stopniami wejścia $1$ (c). Stopnie
-wyliczamy w sposób opisany w (c), przy czym od stopnia wejściowego należy odjąć
-$1$, jeśli $l[v] \le v \le r[v]$ (jest pętla).
+Sprawdzamy, czy istnieje dokładnie $1$ wierzchołek o stopniu wejścia równym $0$
+i czy istnieje dokładnie $n-1$ krawędzi. Jeśli tak, to tworzymy listę
+sąsiedztwa, odpalamy $dfs$ z wierzchołka o stopniu wejścia równym $0$ i jeśli
+odwiedzimy wszystkie wierzchołki, to odpowiedzią jest \textit{TAK}.
+W przeciwnym razie odpowiedzią jest \textit{NIE}. Warunki te są konieczne
+i wystarczające z definicji drzewa (spójny graf o $n-1$ krawędziach).
+Złożoność: $\MCALO(n)$.
 
 \subsection*{(b)}
 % TODO: 
 
 \subsection*{(c)}
-$G$ jest eulerowski $\iff \forall_{v\in \{1..n\}} in[v] = out[v]$ oraz jest
-słabo spójny. Słabą spójność sprawdzamy jak w $(a)$. Znamy już stopnie wyjścia
-dla każdego wierzchołka, wystarczy więc obliczyć stopnie wejścia. Rozdzielamy
-końce przedziałów do odpowiednich kubełków. Następnie postępujemy według
-algorytmu.
-\begin{algorithmic}
-\State $ile \gets 0$
-\For{$i:=1..n$}
-  \State $ile \gets ile + inBucket[i]$
-  \State $in[v] \gets ile$
-  \State $ile \gets ile - outBucket[i]$
-\EndFor
-\end{algorithmic}
-Sprawdzamy liniowo, czy stopnie wejścia i wyjścia każdego wierzchołka są równe,
-jeśli tak, to graf jest eulerowski.
+Sprawdzamy, czy graf jest słabo spójny oraz, czy sumaryczna liczba stopni
+wyjścia jest równa sumarycznej liczbie stopni wejścia. Jeśli tak jest, to graf
+jest eulerowski, w przeciwnym razie nie jest. Wiemy, że warunki te są konieczne
+i wystarczające z wykładu z matematyki dyskretnej.
+Złożoność: $\MCALO(n\alpha(n))$.
 
 \zadanie{}
 \subsection*{(a)}
