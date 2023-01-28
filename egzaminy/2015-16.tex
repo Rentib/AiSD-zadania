@@ -34,8 +34,9 @@ i wyjścia wszystkich wierzchołków. Można je wyliczyć w czasie liniowym.
 Sortujemy przedziały wierzchołków kubełkowo po wartościach $l$. Przechodzimy
 liniowo od lewej do prawej -- stopień wejścia wierzchołka $i$ jest równy
 liczbie zaczętych i niezakończonych jeszcze przedziałów. Stopień wyjścia
-wierzchołka $v$, to $r[v] - l[v] + 1$. Odejmujemy jeszcze $1$ od każdego
+wierzchołka $v$ to $r[v] - l[v] + 1$. Odejmujemy jeszcze $1$ od każdego
 wierzchołka z pętlą ($l[v] \le v \le r[v]$).
+Złożoność: $\MCALO(n)$.
 
 \subsection*{(a)}
 Sprawdzamy, czy istnieje dokładnie $1$ wierzchołek o stopniu wejścia równym $0$
@@ -47,7 +48,13 @@ i wystarczające z definicji drzewa (spójny graf o $n-1$ krawędziach).
 Złożoność: $\MCALO(n)$.
 
 \subsection*{(b)}
-% TODO: 
+Sortujemy przedziały i od lewej do prawej scalamy $2$ kolejne, jeśli nie są
+rozłączne. Znowu idziemy od lewej do prawej i dla wierzchołka $i$ wykonujemy
+$3$ operacje \textit{Union}. Z $l[i], r[i]$ oraz początkiem przedziału, do
+którego należy $i$-ty wierzchołek po scalaniu, jeśli taki przedział istnieje.
+Sprawdzamy, czy na końcu wszystkie wierzchołki są w jednym zbiorze i jeśli tak
+jest, to graf jest słabo spójny.\\
+Złożoność: $\MCALO(n\alpha(n))$.
 
 \subsection*{(c)}
 Sprawdzamy, czy graf jest słabo spójny oraz, czy sumaryczna liczba stopni
