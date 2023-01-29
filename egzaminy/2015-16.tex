@@ -48,20 +48,23 @@ i wystarczające z definicji drzewa (spójny graf o $n-1$ krawędziach).
 Złożoność: $\MCALO(n)$.
 
 \subsection*{(b)}
-Sortujemy przedziały i od lewej do prawej scalamy $2$ kolejne, jeśli nie są
-rozłączne. Znowu idziemy od lewej do prawej i dla wierzchołka $i$ wykonujemy
-$3$ operacje \textit{Union}. Z $l[i], r[i]$ oraz początkiem przedziału, do
-którego należy $i$-ty wierzchołek po scalaniu, jeśli taki przedział istnieje.
-Sprawdzamy, czy na końcu wszystkie wierzchołki są w jednym zbiorze i jeśli tak
-jest, to graf jest słabo spójny.\\
-Złożoność: $\MCALO(n\alpha(n))$.
+Scalamy przedziały, które na siebie nachodzą ($2$ sąsiednie po posortowaniu).
+Dla każdego przedziału każdy wierzchołek łączymy krawędzią z jego lewym
+sąsiadem (dla skrajnie lewego elementu przedziału nic nie robimy). Każdy
+wierzchołek $v$ łączymy krawędzią z $l[v]$ (oczywiście $r[v]$ już jest
+połączone z $l[v]$). Otrzymujemy w ten sposób nieskierowany graf o co najwyżej
+$2n$ krawędziach. Odpalamy DFS z dowolnego wierzchołka i sprawdzamy, czy
+wszystkie są odwiedzone. Działa, ponieważ każdy wierzchołek będzie połączony
+z jego przedziałem, a także wszystkie elementy jednego przedziału będą ze sobą
+połączone.
+Złożoność: $\MCALO(n)$.
 
 \subsection*{(c)}
 Sprawdzamy, czy graf jest słabo spójny oraz, czy sumaryczna liczba stopni
 wyjścia jest równa sumarycznej liczbie stopni wejścia. Jeśli tak jest, to graf
 jest eulerowski, w przeciwnym razie nie jest. Wiemy, że warunki te są konieczne
 i wystarczające z wykładu z matematyki dyskretnej.
-Złożoność: $\MCALO(n\alpha(n))$.
+Złożoność: $\MCALO(n)$.
 
 \zadanie{}
 \subsection*{(a)}
