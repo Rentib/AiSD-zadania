@@ -1,0 +1,86 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{enumerate}
+\usepackage{nopageno} % usuwa numery stron
+\usepackage[margin=.5in]{geometry} % zmniejsza margines
+\usepackage{fouriernc} % śmieszna czcionka
+\usepackage{algpseudocode}
+
+\newcommand{\MBBR}{\mathbb{R}}
+\newcommand{\MBBZ}{\mathbb{Z}}
+\newcommand{\MBBN}{\mathbb{N}}
+\newcommand{\MBBC}{\mathbb{C}}
+\newcommand{\MBBK}{\mathbb{K}}
+\newcommand{\MBBQ}{\mathbb{Q}}
+\newcommand{\MCALO}{\mathcal{O}}
+
+\newcounter{zadanie}
+\newcommand{\zadanie}{\addtocounter{zadanie}{1}\section*{Zadanie \arabic{zadanie}}}
+
+\title{Egzamin 2014/15}
+\author{Stanisław Bitner}
+\date{\today}
+
+\begin{document}
+\maketitle
+\zadanie{}
+Budujemy drzewo sufiksowe. Liściom w drzewie przypisujemy indeksy początku
+słowa w nich się kończącego. Dla każdego wierzchołka programowaniem dynamicznym
+wyznaczamy najmniejszy i największy indeks liścia oraz jego głębokość, czyli
+sumaryczną wagę krawędzi na jego ścieżce do korzenia. Słowo reprezentowane
+przez wierzchołek $v$ spełnia wymogi z treści, jeśli $max[v] - min[v] + 1 \ge
+depth[v]$. Wystarczy więc znaleźć taki wierzchołek o największej głębokości
+i wynikiem będzie reprezentowane przez niego słowo.
+Złożoność: $\MCALO(n)$.
+
+\zadanie{}
+Wzbogacamy drzewo AVL o następujące atrybuty:
+\begin{itemize}
+  \item \textit{rozmiar} -- liczba elementów w poddrzewie;
+  \item \textit{jedynki} -- liczba jedynek w poddrzewie;
+  \item \textit{leń} -- czy należy wykonać \textit{Zamień} w synach.
+\end{itemize}
+
+Utrzymujemy następujący niezmiennik: wartość wierzchołka $v$ jest równa
+alternatywie rozłącznej wartości trzymanej w wierzchołku i wszystkich wartości
+\textit{leń} na jego ścieżce do korzenia (nie licząc jego \textit{lenia}).
+
+Przy wejściu do wierzchołka $v$ lub wykonywaniu rotacji $(v,u)$ należy zepchnąć
+\textit{leń} wyższego z wierzchołków, a następnie niższego (samo spychanie było
+omawiane na labach). Utrzymywanie rozmiarów oraz liczby jedynek, to oczywiście
+nie jest problem i wielokrotnie pojawiało się na ćwiczeniach.
+
+Operację \textit{Zamień}, wykonujemy poprzez \textit{Split}, aby wyodrębnić elementy
+z odpowiedniego przedziału. W korzeniu wyekstrahowanego poddrzewa zamieniamy
+jego wartość i parametr \textit{leń} na przeciwne oraz liczbę jedynek na
+$rozmiar[v] - jedynki[v]$. Na koniec wykonujemy \textit{Łącz} na otrzymanych
+poddrzewach.
+
+Operację \textit{Pozycja} wykonujemy przeszukując drzewo szukając wierzchołka
+o wartości $1$ takiego, że $\mathit{jedynki}[l[v]]
++ 1 = \lfloor\frac{k}{2}\rfloor$, przy czym $k$ jest równe
+$\mathit{jedynki}[root]$.
+
+Złożoności wszystkich operacji są takie same -- $\MCALO(\log{n})$.
+
+\zadanie{}
+\subsection*{(a)}
+Ukorzeniamy drzewo w $x$ i wyznaczamy $low$ dla wszystkich wierzchołków.
+Wyznaczamy też dla każdego wierzchołka syna (jeśli istnieje), do którego musimy
+pójść, żeby dostać się do $low[v]$. Odpowiedzią będzie cykl powstały w taki
+sposób, że z $y$ prowadzimy $2$ rozłączne ścieżki: jedną do $low[y]$, drugą, do
+syna $low[y]$ leżącego na ścieżce $low[y] - y$. Wielokrotnie powtarzając taki
+schemat, dojdziemy w końcu do korzenia, czyli wierzchołka $x$, a tym samym
+wykonamy zadanie. Złożoność: $\MCALO(n)$.
+
+\subsection*{(b)}
+% TODO:
+
+\zadanie{}
+% TODO:
+
+\end{document}
