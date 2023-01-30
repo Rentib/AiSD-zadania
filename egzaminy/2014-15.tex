@@ -78,7 +78,14 @@ schemat, dojdziemy w końcu do korzenia, czyli wierzchołka $x$, a tym samym
 wykonamy zadanie. Złożoność: $\MCALO(n)$.
 
 \subsection*{(b)}
-% TODO:
+Sortujemy krawędzie kubełkowo po wagach. Idziemy od najcięższych i dodajemy je
+kolejno do grafu, równocześnie sprawdzając, czy $x$ i $y$ są w jednej spójnej.
+Gdy dojdziemy do momentu, w którym są połączone, wykonujemy dowolny algorytm
+przeszukiwania grafu i wyznaczamy dowolną ze ścieżek. Będzie to ścieżka
+o największej wartości, ponieważ jeśli usuniemy krawędzie o najmniejszej wadze,
+to nie będzie istniała ścieżka łącząca $x$ z $y$. Sprawdzanie, czy $x$ jest
+w spójnej $y$ można robić w zamortyzowanym czasie stałym i jest to dość znany
+algorytm. Złożoność: $\MCALO(n)$.
 
 \zadanie{}
 % TODO:
