@@ -29,6 +29,7 @@
 \subsection*{(a)}
 W drzewie każdy wierzchołek jest kliką, zatem największa liczba klik to $n$.
 W szczególności cały graf może być kliką, więc najmniejsza liczba klik to $1$.
+% TODO: zalezy od tego jak to definiujemy...
 
 \subsection*{(b)}
 W $K_n \approx n^2$, a jak $a_1 + ... + a_{100} = s$, gdzie $s$ jest ustalone,
@@ -56,8 +57,13 @@ dostajemy $2 \cdot (9!)^2 + 8! \cdot 9! + \sum_{r=1}^8 (r-1)! \cdot 2 \cdot (9
 - r)! \cdot 9!$ możliwe DFS-numerowania.
 
 \subsection*{(d)}
-Bez sensu to zadanie, bo $|F| = \MCALO(n^2)$.
-% TODO:
+Wyznaczamy drzewo z ważonymi wierzchołkami w taki sposób, że wierzchołki to
+kliki oraz punkty artykulacji. Waga punktów artykulacji to $0$ natomiast wagami
+wierzchołków reprezentujących kliki są liczby ich wierzchołków. Taki graf można
+łatwo otrzymać, ponieważ punkty artykulacji to punkty połączone z co najmniej
+dwiema klikami. Można to obliczyć po uprzednim posortowaniu wierzchołków
+kubełkowo. Odpowiedzią będzie długość średnicy w takim drzewie. Złożoność:
+$\MCALO(n+k) = \MCALO(n)$.
 
 \newpage
 \section*{Zadanie 2}
@@ -82,9 +88,7 @@ będą wykonywane w czasie stałym.
 
 \section*{Zadanie 3}
 \subsection*{(a)}
-Łatwo spałować sumami prefiksowymi i drzewem przedziałowym
-w $\MCALO(n\log{n})$.
-% TODO:
+Drzewo sufiksowe i sumy prefiksowe. Złożoność: $\MCALO(n)$.
 
 \subsection*{{(b)}}
 Najpierw zajmijmy się najmniejszą sumą. Zauważmy, że nie może być ona mniejsza
