@@ -1,0 +1,88 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{enumerate}
+\usepackage{nopageno} % usuwa numery stron
+\usepackage[margin=.5in]{geometry} % zmniejsza margines
+\usepackage{fouriernc} % śmieszna czcionka
+\usepackage{algpseudocode}
+
+\newcommand{\MBBR}{\mathbb{R}}
+\newcommand{\MBBZ}{\mathbb{Z}}
+\newcommand{\MBBN}{\mathbb{N}}
+\newcommand{\MBBC}{\mathbb{C}}
+\newcommand{\MBBK}{\mathbb{K}}
+\newcommand{\MBBQ}{\mathbb{Q}}
+\newcommand{\MCALO}{\mathcal{O}}
+
+\newcounter{zadanie}
+\newcommand{\zadanie}{\addtocounter{zadanie}{1}\section*{Zadanie \arabic{zadanie}}}
+
+\title{Egzamin 2013/14}
+\author{Stanisław Bitner}
+\date{\today}
+
+\begin{document}
+\maketitle
+\zadanie{}
+\subsection*{(a)}
+Tworzymy drzewo AVL, w którym kluczami będą pary posortowane leksykograficznie.
+To pozwala na bardzo łatwe wykonywanie operacji \textit{Ini, Insert, Delete}
+oraz wyszukiwania konkretnej pary. Okręgi są jednostkowe i ich środki mają
+współrzędne całkowite, więc punkt $(x,y)$ może się zawierać w niewielkiej,
+stałej liczbie okręgów. To oznacza, że do wykonania operacji \textit{Find}
+wystarczy wyznaczyć wszystkie takie środki i sprawdzić, które z nich należą do
+naszego drzewa. Jednym ze sposobów wyznaczenia nadzbioru interesujących nas
+punktów jest wzięcie zbioru
+$\{(a,b) | a\in[\lfloor x \rfloor - 2, \lceil x \rceil + 2] \land
+           b\in[\lfloor y \rfloor - 2, \lceil y \rceil + 2]\}$.
+Złożoność każdej operacji: $\MCALO(\log{n})$.
+
+\subsection*{(b)}
+Zauważmy, że z każdego środka koła można dojść w jednym ruchu do co najwyżej
+$8$ innych środków. Krawędzi wychodzące z $P$ wyznaczamy po prostu przechodząc
+po wszystkich środkach $S$ i dodajemy krawędź $\iff |PS| \le 1$. Dla $Q$
+analogicznie. Następnie sortujemy środki po $x$ i dodajemy je do kubełków
+o numerze $y$. Obsługa $y$-tego kubełka polega na utworzeniu (za pomocą
+scalania) tablicy punktów składającej się z kubełków o numerach z przedziału
+$[y-2,y+2]$. Iterujemy się po tak otrzymanej tablicy i dla każdego wierzchołka
+sprawdzamy $20$ wierzchołków za nim. Jeśli dowolny z nich jest w odległości
+$\le 2$, to tworzymy między nimi krawędź. Ostatecznie otrzymujemy graf w którym
+liczba krawędzi jest rzędu $\MCALO(n)$ i na tym to grafie wykonujemy algorytm
+DFS, aby sprawdzić, czy zadane punkty są w jednej spójnej.
+Złożoność: $\MCALO(n + 5n + 20n) = \MCALO(n)$.
+
+\zadanie{}
+Wzbogacamy drzewo splay o następujące atrybuty:
+\begin{itemize}
+\item \textit{rozmiar} -- rozmiar poddrzewa;
+\item \textit{leń} -- ile należy dodać do synów;
+\item \textit{min} -- najmniejsza wartość w poddrzewie;
+\item \textit{max} -- największa wartość w poddrzewie.
+\end{itemize}
+Utrzymujemy następujący niezmiennik wartość wierzchołka $v$ jest równa sumie
+wartości trzymanej w wierzchołku oraz wartością \textit{leń} na jego ścieżce do
+korzenia (nie licząc jego \textit{lenia}). Wszystkie atrybuty można z łatwością
+utrzymywać i było to tłumaczone na ćwiczeniach bądź laboratoriach. Operację
+\textit{Ini} wykonujemy poprzez wielokrotne dodanie $0$ do drzewa. Operacje
+\textit{Min} i \textit{Max} wykonujemy poprzez zwrócenie odpowiednich atrybutów
+korzenia. Operację \textit{Inc} wykonujemy poprzez wyekstrahowanie $k$
+najmniejszych elementów za pomocą \textit{Split}. Następnie do wartości,
+\textit{min, max i lenia} korzenia wyekstrahowanego drzewa dodajemy $1$. Jeśli
+\textit{max} wyekstrahowanego drzewa jest większy niż \textit{min} reszty, to
+używamy \textit{Split}, by wyjąć te wartości z drzew. Następnie wykonujemy
+\textit{Join} łącząc drzewa w kolejności rosnących \textit{max}-ów. Należy
+jeszcze pamiętać, aby wchodząc do wierzchołka najpierw wykonać leniwe
+spychanie. Złożoności operacji \textit{Min} i \textit{Max}: $\MCALO(1)$.
+Złożoność operacji \textit{Inc}: $\MCALO(\log{n})$.
+
+\zadanie{}
+\subsection*{(a)}
+\subsection*{(b)}
+\subsection*{(c)}
+\subsection*{(d)}
+
+\end{document}
