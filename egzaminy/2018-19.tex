@@ -101,14 +101,14 @@ największa wysokość dla $n-drzewa$.
 
 \subsection*{(b)}
 Zauważmy, że $\forall_{i\in{1..n}} \{i,i+1\}, \{i,i+2\} \in E$. Niech $a[i]
-= i$, wtedy istnieją tylko krawędzie, które muszą istnieć. Jeśli dodamy
+= \min(i, n)$, wtedy istnieją tylko krawędzie, które muszą istnieć. Jeśli dodamy
 jakąkolwiek krawędź, to największa odległość $1$ od wierzchołka może tylko
 zmaleć, więc wysokość też może tylko zmaleć. Wysokość drzewa BFS będzie równa
 $\lfloor\frac{n}{2}\rfloor$.
 
 \subsection*{(c)}
 Należy zauważyć, że jeśli graf zawierający jedynie te krawędzie, które muszą
-być w nim zawarte jest dwuspójny, to gdy dodamy jakiekolwiek inne krawędzie,
+być w nim zawarte, jest dwuspójny, to gdy dodamy jakiekolwiek inne krawędzie,
 pozostanie dwuspójny. Wystarczy więc udowodnić, że graf
 $\langle V=\{1..n\},E = \{ \{i,i+1\} , \{i,i+2\} \}\rangle$
 jest dwuspójny. Przypuśćmy, że listy sąsiedztwa są posortowane. Wtedy
@@ -118,11 +118,12 @@ $\forall_i parent[i] = i-1 \land low[i] \le i-2$, zatem graf jest dwuspójny.
 \subsection*{(d)}
 Tworzymy $n$ kubełków. Przechodzimy tablicę $a$ i wrzucamy indeksy do
 odpowiednich kubełków. Indeks $j$ wrzucamy do $\{a[j],a[j+1],a[j+2]\}$-tego
-kubełka. Następnie przeglądamy kolejne kubełki.\\
-W $k$-tym kubełku, jeśli $2$ kolejne elementy nie są w jednym zbiorze, to
-łączymy je i dodajemy $k$ do wagi. Wewnątrz każdego z kubełków istnieją kliki,
-jednak wystarczy, że rozpatrzymy jedynie pojedynczą ścieżkę rozpinającą, gdyż
-wszystkie krawędzie wewnątrz kubełka mają jednakowe wagi. To, że otrzymamy
+kubełka. Następnie przeglądamy kolejne kubełki.\\ W $k$-tym kubełku, jeśli $2$
+kolejne elementy nie są w jednym zbiorze, to łączymy je, wykonując
+\textit{Union} i dodajemy $k$ do wagi. Wewnątrz każdego z kubełków istnieją
+kliki, jednak wystarczy, że rozpatrzymy jedynie pojedynczą ścieżkę rozpinającą,
+gdyż wszystkie krawędzie wewnątrz kubełka mają jednakowe wagi. To, że otrzymamy
 minimalne drzewo rozpinające wynika z algorytmu Kruskala.
+Złożoność: $\MCALO(n\alpha(n))$.
 
 \end{document}
