@@ -63,8 +63,8 @@ $\MCALO(\log{n})$, natomiast odpowiedzi na zapytanie \textit{Podzielne3} mamy
 w $\MCALO(1)$.\\ Wartości $pre, suf$ i $wynik$ można wyliczać na podstawie
 klucza w wierzchołku i wartości w jego synach, więc nie ma problemu
 z rotacjami. Należy przy tym pamiętać, że obliczając wartości, może zmienić się
-parzystość indeksów prawego poddrzewa; wówczas należy zamieniać wartości
-przystające z $1$ z wartościami przystającymi do $-1$ ($2^n\equiv_3 -1$).
+parzystość indeksów prawego poddrzewa; należy wówczas zamieniać wartości
+przystające do $1$ z wartościami przystającymi do $-1$ ($2^n\equiv_3 -1$).
 
 \subsection*{(c)}
 Liczba jest podzielna przez $4$, gdy jej pierwsze $2$ bity to zera
@@ -76,13 +76,10 @@ Złożoność: $\MCALO(n)$.
 
 \section*{Zadanie 2}
 \subsection*{(a)}
-Wyznaczamy te dwie różne liczby (liniowo przechodząc po tablicy i na przykład porównując dwie sąsiednie).
-Mapujemy jedną do $1$ drugą do $-1$. Teraz naszym zadaniem jest znaleźć najdłuższy spójny podciąg
-o sumie $0$. Zauważmy, że suma każdego podciągu jest nie większa niż $n$. Możemy więc zapisać
-dla każdego $k \in \{1..n\}$ najmniejszy oraz największy indeks $i$ taki, że $\sum_{i}^k mapped(a[i]) = k$.
-Następnie wynikiem będzie para indeksów przypisanych sumie $k$ o największej różnicy.
-Przy czym taki algorytm zwraca parę $(i-1, j)$, więc w ostatecznym wyniku należy pamiętać o zwiększeniu
-o $1$ mniejszego z indeksów.
+Tak samo, jak kolejny podpunkt, ale z założeniem, że $c=0$.
+Innym sposobem jest zmiana jednej wartości w $1$, a drugiej w $-1$ i użycie
+dość znanego algorytmu używającego sum prefiksowych do wyznaczania najdłuższego
+spójnego podciągu o sumie równej $0$.
 Złożoność: $\MCALO(n)$.
 
 \subsection*{(b)}
@@ -92,35 +89,25 @@ $k_i = (a-b, a-c, i)$, gdzie $i$ to długość prefiksu. Sortujemy te krotki
 leksykograficznie, będzie to liniowe, gdyż $a-b, a-c, i \in [-n, n]$. Teraz
 w każdej klasie krotek, wyznaczonej przez $2$ pierwsze elementy, szukamy
 najmniejszego i największego indeksu (wystarczy liniowo, bo i tak każdą krotkę
-sprawdzimy raz). Wynikiem będzie para ($i_min + 1, j_max$) taka, że $i$ oraz
+sprawdzimy raz). Wynikiem będzie para ($i_{min} + 1, j_{max}$) taka, że $i$ oraz
 $j$ są z jednej klasy i ich różnica jest największa.
+Złożoność: $\MCALO(n)$.
 
 \section*{Zadanie 3}
-
-Użyjemy struktury zbiorów rozłącznych. Spójny graf posiada oczywiście cykl Eulera $\iff$ stopień
-każdego wierzchołka jest parzysty. Zaczynamy z lasem drzew jedno-wierzchołkowych i globalnym licznikiem
-spójnych Eulerowskich ustawionym na $n$. EulerCyc będzie po prostu zwracał ten licznik.
-\begin{algorithmic}
-\State $euler \gets n, deg[n] \gets {0,..,0}, dsudeg[n] \gets {0,..,0}$
-\Function{Dodaj}{$u,v$}
-\State $pu \gets Find(u)$
-\State $pv \gets Find(v)$
-\State $euler \gets euler - [dsudeg[pu][1] = 0] - [dsudeg[pv][1] = 0]$
-\State $dsudeg[pu][deg[u]] -= 1$
-\State $dsudeg[pv][deg[v]] -= 1$
-\State $deg[u] \gets 1 - deg[u]$
-\State $deg[v] \gets 1 - deg[v]$
-\State $dsudeg[pu][deg[u]] += 1$
-\State $dsudeg[pv][deg[v]] += 1$
-\State $Union(u, v)$
-\State $rep \gets Find(v)$
-\State $dsudeg[rep] = dsudeg[pu] + dsudeg[pv]$
-\State $euler \gets euler + [dsudeg[rep][1] = 0]$
-\EndFunction
-\end{algorithmic}
-Dla każdego zbioru podtrzymujemy jego liczbę wierzchołków o stopniach parzystych oraz nieparzystych.
-Żeby było łatwiej jako stopień wierzchołka trzymamy tylko wynik modulo $2$.
-Złożoność: $\MCALO(n\alpha(n))$.
+Użyjemy struktury zbiorów rozłącznych. Zaczynamy z singletonami. Każdy
+wierzchołek będzie przechowywał swój stopień, natomiast każdego reprezentanta
+w strukturze wzbogacamy o następujące atrybuty:
+\begin{itemize}
+  \item \textit{p} -- liczba wierzchołków o parzystych stopniach;
+  \item \textit{n} -- liczba wierzchołków o nieparzystych stopniach.
+\end{itemize}
+Atrybuty te można bardzo łatwo utrzymywać podczas dodawania krawędzi. Dodatkowo
+trzymamy globalny licznik \textit{e} oznaczający liczbę takich spójnych, że
+wszystkie ich wierzchołki mają parzyste stopnie. Oczywiście parzystość stopni
+i spójność to warunki konieczne i wystarczające, aby w grafie był cykl eulera.
+Złożoności:
+\textit{Dodaj} -- $\MCALO(\alpha(n))$,
+\textit{EulerCyc} -- $\MCALO(1)$.
 
 \section*{Zadanie 4}
 Jako że dodajemy coraz to większe klucze, to interesuje nas jedynie skrajnie
