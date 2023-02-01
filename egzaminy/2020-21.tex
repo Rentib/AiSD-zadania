@@ -87,16 +87,18 @@ zbioru zawsze miał aktualne informacje. Złożoności:
 \section*{Zadanie 3}
 \subsection*{(a)}
 Tworzymy tablicę sum prefiksowych z krotnościami liter z alfabetu oraz drzewo
-sufiksowe dla słowa. Przechodzimy po drzewie DFS-em. W każdym wierzchołku znamy
-indeks ostatniej litery na jego ścieżce do korzenia oraz długość tej ścieżki,
-dlatego znamy też krotności liter w podsłowie wyznaczonym przez ten
-wierzchołek. Jeśli każda litera występuje co najmniej raz, to do wyniku
-dodajemy liczbę podsłów w poddrzewie wierzchołka. Następnie wyznaczamy
-wyszukiwaniem binarnym takie miejsce na krawędzi do ojca, które zawiera
-wszystkie litery alfabetu i jest najwcześniej. Do wyniku dodajemy odległość
-między tym miejscem a indeksem litery wskazywanej przez wierzchołek. Gdy
-dojdziemy do takiego wierzchołka, to nie schodzimy do jego poddrzewa.
-Złożoność: $\MCALO(n\log{n})$.
+sufiksowe dla słowa. Dla każdego indeksu znajdujemy też pierwsze na prawo
+wystąpienie każdej z liter alfabetu. Przechodzimy po drzewie DFS-em. W każdym
+wierzchołku znamy indeks ostatniej litery na jego ścieżce do korzenia oraz
+długość tej ścieżki, dlatego znamy też krotności liter w podsłowie wyznaczonym
+przez ten wierzchołek. Jeśli każda litera występuje co najmniej raz, to do
+wyniku dodajemy liczbę podsłów w poddrzewie wierzchołka. Następnie wyznaczamy
+na krawędzi do ojca miejsce, które zawiera wszystkie litery alfabetu i jest
+najwcześniej (używamy wyznaczonej tablicy najbliższych liter). Do wyniku
+dodajemy odległość między tym miejscem a indeksem litery wskazywanej przez
+wierzchołek. Gdy dojdziemy do takiego wierzchołka, to nie schodzimy do jego
+poddrzewa.
+Złożoność: $\MCALO(n)$.
 
 \subsection*{{(b)}}
 Najpierw zajmijmy się najmniejszą sumą. Zauważmy, że nie może być ona mniejsza
