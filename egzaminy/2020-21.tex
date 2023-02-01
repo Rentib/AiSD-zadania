@@ -27,9 +27,9 @@
 
 \section*{Zadanie 1}
 \subsection*{(a)}
-W drzewie każdy wierzchołek jest kliką, zatem największa liczba klik to $n$.
 W szczególności cały graf może być kliką, więc najmniejsza liczba klik to $1$.
-% TODO: zalezy od tego jak to definiujemy...
+W drzewie jest $n-1$ klik i jest to największa możliwa do otrzymania ich
+liczba, ponieważ każda dwuspójna składowa jest co najmniej krawędzią.
 
 \subsection*{(b)}
 W $K_n \approx n^2$, a jak $a_1 + ... + a_{100} = s$, gdzie $s$ jest ustalone,
@@ -62,33 +62,41 @@ kliki oraz punkty artykulacji. Waga punktów artykulacji to $0$ natomiast wagami
 wierzchołków reprezentujących kliki są liczby ich wierzchołków. Taki graf można
 łatwo otrzymać, ponieważ punkty artykulacji to punkty połączone z co najmniej
 dwiema klikami. Można to obliczyć po uprzednim posortowaniu wierzchołków
-kubełkowo. Odpowiedzią będzie długość średnicy w takim drzewie. Złożoność:
-$\MCALO(n+k) = \MCALO(n)$.
+kubełkowo. Odpowiedzią będzie długość średnicy w takim drzewie. 
+Złożoność: $\MCALO(n+k) = \MCALO(n)$.
 
 \newpage
 \section*{Zadanie 2}
-Do rozwiązania tego zadania użyjemy struktury zbiorów rozłącznych.\\ Aby łatwo
-odpowiadać na zapytania o zbalansowane składowe, będziemy przechowywać ich
-globalny licznik $ile$ (początkowo równy $n$). Co więcej, struktury zbiorów
-wzbogacamy o następujące atrybuty:
+Do rozwiązania tego zadania użyjemy struktury zbiorów rozłącznych.\\
+Aby łatwo odpowiadać na zapytania o zbalansowane składowe, będziemy
+przechowywać ich globalny licznik $ile$ (początkowo równy $n$). Co więcej,
+reprezentantów zbiorów wzbogacamy o następujące atrybuty:
 \begin{itemize}
-  \item $\mathit{b}$ -- liczba białych wierzchołków w spójnej
-  \item $\mathit{c}$ -- liczba czerwonych wierzchołków w spójnej
+  \item $\mathit{b}$ -- liczba białych wierzchołków w spójnej;
+  \item $\mathit{c}$ -- liczba czerwonych wierzchołków w spójnej.
 \end{itemize}
 Atrybuty te należy w odpowiedni sposób aktualizować podczas funkcji
 $\mathit{Kolor}$ oraz $\mathit{Dodaj}$ tak, aby licznik oraz każdy reprezentant
 zbioru zawsze miał aktualne informacje. Złożoności: 
 \begin{itemize}
-  \item $\mathit{Kolor}$ -- $\MCALO(\alpha(n))$
-  \item $\mathit{Dodaj}$ -- $\MCALO(\alpha(n))$
-  \item $\mathit{ZbalansowaneSkladowe}$ -- $\MCALO(1)$
+  \item $\mathit{Kolor}$ -- $\MCALO(\alpha(n))$;
+  \item $\mathit{Dodaj}$ -- $\MCALO(\alpha(n))$;
+  \item $\mathit{ZbalansowaneSkladowe}$ -- $\MCALO(1)$.
 \end{itemize}
-Należy przy tym pamiętać, że gdy graf stanie się spójny, wszystkie operacje
-będą wykonywane w czasie stałym.
 
 \section*{Zadanie 3}
 \subsection*{(a)}
-Drzewo sufiksowe i sumy prefiksowe. Złożoność: $\MCALO(n)$.
+Tworzymy tablicę sum prefiksowych z krotnościami liter z alfabetu oraz drzewo
+sufiksowe dla słowa. Przechodzimy po drzewie DFS-em. W każdym wierzchołku znamy
+indeks ostatniej litery na jego ścieżce do korzenia oraz długość tej ścieżki,
+dlatego znamy też krotności liter w podsłowie wyznaczonym przez ten
+wierzchołek. Jeśli każda litera występuje co najmniej raz, to do wyniku
+dodajemy liczbę podsłów w poddrzewie wierzchołka. Następnie wyznaczamy
+wyszukiwaniem binarnym takie miejsce na krawędzi do ojca, które zawiera
+wszystkie litery alfabetu i jest najwcześniej. Do wyniku dodajemy odległość
+między tym miejscem a indeksem litery wskazywanej przez wierzchołek. Gdy
+dojdziemy do takiego wierzchołka, to nie schodzimy do jego poddrzewa.
+Złożoność: $\MCALO(n\log{n})$.
 
 \subsection*{{(b)}}
 Najpierw zajmijmy się najmniejszą sumą. Zauważmy, że nie może być ona mniejsza
