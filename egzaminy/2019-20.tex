@@ -58,31 +58,19 @@ Dla BFS-drzewa jest to $1$ ($K_n$). Nie może być mniej, bo $n>2$ i trzeba doj�
 do każdego wierzchołka.
 
 \subsection*{(c)}
-https://cs.stackexchange.com/questions/57565/linear-time-algorithm-to-find-an-odd-length-cycle-in-a-directed-graph
+Wybieramy dowolny wierzchołek $s$. Odpalamy BFS. Jeśli istnieje krawędź $(v,u)$
+taka, że $dist(s,v) \equiv_2 dist(s,u)$, to istnieje zadana marszruta. Jeśli
+istnieje, to odpalamy BFS z $v$. Poszukiwaną marszrutą będzie $s
+\rightsquigarrow v \rightsquigarrow s$ lub $s \rightsquigarrow u \rightarrow
+v \rightsquigarrow s$ w zależności od ich parzystości.
+Złożoność: $\MCALO(n)$.
 
-\newpage\zadanie{}
-Przypuśćmy, że $n>1$, w przeciwnym przypadku, problem jest trywialny. Wystarczy
-użyć lekko zmodyfikowanego algorytmu KMP.
-\begin{algorithmic}
-
-  \Function{Podobne}{$(x)_n,(y)_m$}
-    \State $s \gets (x)_n + \infty + (y)_m$
-    \State $p[n] = \{0..0\}$
-    \For{$i=1..n-1$}
-      \State $j \gets p[i-1]$
-      \While{$j>0 \land \frac{s[i]}{s[j]} \neq \frac{s[i-1]}{s[j-1]}$}
-        \State $j \gets p[j-1]$
-      \EndWhile
-      \If{$\frac{s[i]}{s[j]} = \frac{s[i-1]}{s[j-1]}$}
-        \State $j \gets j + 1$
-      \EndIf
-      \State $p[i] \gets j$
-    \EndFor
-  \EndFunction
-
-\end{algorithmic}
-Jeżeli $p[i]$ jest równe $n$, to $i$ jest końcem jednego z podobnych spójnych podciągów.
-Skoro chcemy wyznaczyć początki podciągów, to wystarczy odejmować $n-1$ od tych indeksów.
+\zadanie{}
+Tworzymy ciąg $x'_i = \frac{x_i}{x_j}$, gdzie $j = \max\{j | j<i \land x_j \neq
+0\} \cup \{1\}$. Analogicznie konstruujemy $y'_i$. \\
+Wykonujemy algorytm KMP na ciągu $x' \cdot \# \cdot y'$ wyznaczając tablicę
+$p$.\\
+Ciąg $(y)$ jest podobny do $x$ w indeksie $i \iff p[i + n - 1] = n-1$.
 
 \zadanie{}
 % TODO:
