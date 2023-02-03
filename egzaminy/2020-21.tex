@@ -43,18 +43,20 @@ będą zbliżone rozmiarem, a zatem\\ $\sum_{i=1}^{21} \binom{21}{2}
 
 \subsection*{(c)}
 Są dwie możliwości wyboru korzenia drzewa. Może być to punkt artykulacji lub
-nie. W drugim przypadku wszystkie wybory są symetryczne.\\ Zajmijmy się
-najpierw pierwszym przypadkiem -- gdy wejdziemy do którejś z klik, musimy ją
-całą obejść, gdyż jedyny punkt artykulacji w grafie jest już odwiedzony
-(korzeń). To oznacza, że drzewo DFS, jakie otrzymamy, będzie składało się
-z korzenia i dwóch ścieżek długości $9$. To daje nam $2 \cdot (9!)^2$
-możliwości DFS-numerowania.\\ W drugim przypadku jest inaczej. Zaczynamy
-z dowolnego wierzchołka w grafie, dochodzimy do punktu artykulacji w $r \le 9$
-ruchach. Jeśli $r=9$, to idziemy do drugiej z klik, w przeciwnym przypadku
-wybieramy, do której wejdziemy. To daje nam $1 \cdot 8! \cdot 1 \cdot 9!$ dla
-$r=9$ i $\sum_{r=1}^8 (r-1)! \cdot 2 \cdot (9 - r)! \cdot 9!$.\\ W sumie
-dostajemy $2 \cdot (9!)^2 + 8! \cdot 9! + \sum_{r=1}^8 (r-1)! \cdot 2 \cdot (9
-- r)! \cdot 9!$ możliwe DFS-numerowania.
+nie. W drugim przypadku wszystkie wybory są symetryczne.
+
+Zajmijmy się najpierw pierwszym przypadkiem -- gdy wejdziemy do którejś z klik,
+musimy ją całą obejść, gdyż jedyny punkt artykulacji w grafie jest już
+odwiedzony (korzeń). To oznacza, że drzewo DFS, jakie otrzymamy, będzie
+składało się z korzenia i dwóch ścieżek długości $9$. To daje nam $2 \cdot
+(9!)^2$ możliwości DFS-numerowania.
+
+W drugim przypadku jest inaczej. Zaczynamy z dowolnego wierzchołka w grafie,
+dochodzimy do punktu artykulacji w $r \le 9$ ruchach. Jeśli $r=9$, to idziemy
+do drugiej z klik, w przeciwnym przypadku wybieramy, do której wejdziemy. To
+daje nam $1 \cdot 8! \cdot 1 \cdot 9!$ dla $r=9$ i $\sum_{r=1}^8 (r-1)! \cdot
+2 \cdot (9 - r)! \cdot 9!$.\\ W sumie dostajemy $2 \cdot (9!)^2 + 8! \cdot 9!
++ \sum_{r=1}^8 (r-1)! \cdot 2 \cdot (9 - r)! \cdot 9!$ możliwe DFS-numerowania.
 
 \subsection*{(d)}
 Wyznaczamy drzewo z ważonymi wierzchołkami w taki sposób, że wierzchołki to
@@ -112,17 +114,17 @@ wartości $0$ natomiast kolejne będą miały wartości $1,2,..,n-4$. Nie da si�
 są $4$ różne elementy.
 
 \section*{Zadanie 4}
-Sortujemy współrzędne wierzchołków i skalujemy je do liczb $1..n$ (osobno $x$
-i $y$). Relacje przecinania są w ten sposób zachowane. Następnie stosujemy
-technikę zamiatania -- idziemy od lewej do prawej, gdy napotykamy lewy koniec
-poziomego odcinka dodajemy jego $y$ do drzewa przedziałowego, gdy napotykamy
-prawy koniec, to usuwamy. Gdy napotkamy odcinek pionowy, to liczba odcinków,
-z którymi tworzy przecięcie jest równa sumie na przedziale $[y_1,y_2]$ tego
-odcinka. Jeśli jest ona nie mniejsza niż dotychczasowe maksimum, to
-aktualizujemy je. Analogicznie robimy od góry do dołu. Następnie tworzymy pustą
-listę i powtarzamy zamiatanie, przy czym tym razem nie aktualizujemy wyniku,
-tylko dodajemy numer takiego odcinka na listę. Ostatecznym wynikiem jest w ten
-sposób uzyskana lista. Złożoność: $\MCALO(n\log{n})$ -- sortowanie i operacje
-drzewowe powtarzane $n$-krotnie.
+Sortujemy współrzędne skalujemy je do liczb $1..2n$ (osobno $x$ i $y$). Relacje
+przecinania są w ten sposób zachowane. Następnie stosujemy technikę zamiatania
+-- idziemy od lewej do prawej po posortowanych względem $x$ końcach odcinków,
+gdy napotykamy lewy koniec poziomego odcinka dodajemy jego $y$ do drzewa
+przedziałowego, gdy napotykamy prawy koniec, to usuwamy. Gdy napotkamy odcinek
+pionowy, to liczba odcinków, z którymi tworzy przecięcie jest równa sumie na
+przedziale $[y_1,y_2]$ tego odcinka. Jeśli jest ona nie mniejsza niż
+dotychczasowe maksimum, to aktualizujemy je. Analogicznie robimy od góry do
+dołu. Następnie tworzymy pustą listę i powtarzamy zamiatanie, przy czym tym
+razem nie aktualizujemy wyniku, tylko dodajemy numer takiego odcinka na listę.
+Ostatecznym wynikiem jest w ten sposób uzyskana lista.
+Złożoność: $\MCALO(n\log{n})$.
 
 \end{document}
