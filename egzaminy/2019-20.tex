@@ -73,6 +73,19 @@ $p$.\\
 Ciąg $(y)$ jest podobny do $x$ w indeksie $i \iff p[i + n - 1] = n-1$.
 
 \zadanie{}
-% TODO:
+\subsection*{(a)}
+Wstawiając $n$ elementów najpierw wstawiamy wszystkie poza najmniejszym, potem
+najmniejszy i potem całą resztę. Możemy to oszacować następującym wzorem:
+$A_{n} = A_{n-1} + 1 + A_{n-1} = 2^n - 1 = \MCALO(2^n)$.
+
+\subsection*{(b)}
+Niech $X_i$ -- długość ścieżki od stosu $[1, 2, ..., i - 1]$ do stosu $[1, 2,
+..., i]$.\\
+$E[X_i] \le n-i+1$, ponieważ za każdym razem wybieramy z $n - |stos|$ elementów.
+Prawdopodobieństwo wylosowania najmniejszego wynosi $\frac{1}{|stos|}$.
+Wtedy $E[X] = \sum_{i=1}^n E[X_i] \le \sum_{i=1}^n n-i+1 = \MCALO(n^2)$.
+
+\subsection*{(c)}
+wypchaj sie
 
 \end{document}
