@@ -54,7 +54,7 @@ Złożoność: $\MCALO(|x|)$
 \Function{Podzielne}{x}
   \State $pref[3] \gets {1,0,0}, curr \gets 0, res \gets 0$
   \For{$i := 1..n$}
-    \State $curr \gets (curr + x[i]) mod 3$
+    \State $curr \gets (curr + x[i]) \mod 3$
     \State $res \gets res + pref[curr]$
     \State $pref[curr] \gets pref[curr] + 1$
   \EndFor
@@ -64,14 +64,22 @@ Złożoność: $\MCALO(|x|)$
 
 \subsection*{(b)}
 Postępujemy podobnie jak ostatnio, ale zapamiętujemy najmniejszy i największy
-indeks dla każdego $i\in\{0,1,2\}$ (przystawanie modulo $3$). Otrzymujemy
-w ten sposób pary $(i,j)$ oznaczające, że $x[i+1..j] \equiv_3 0$. Z par trzeba
-usunąć jeszcze zera wiodące, co robimy liniowo. Wynikiem będzie para
-o największej różnicy $j-i$. W przypadku remisów porównujemy te słowa
-leksykograficznie (będą co najwyżej $2$ porównania. Złożoność: $\MCALO(|x|)$.
+indeks dla każdego $i\in\{0,1,2\}$ (przystawanie modulo $3$). Otrzymujemy w ten
+sposób trzy pary $(i,j)$ oznaczające, że $x[i+1..j] \equiv_3 0$. Do tak
+otrzymanych słów dodajemy zera wiodące, aby były równej długości. Wynikiem jest
+największe leksykograficznie z nich.
+Złożoność: $\MCALO(|x|)$.
 
 \subsection*{(c)}
-% TODO:
+Tworzymy drzewo sufiksowe, modulo prefiksowe i sumy prefiksowe prefiksów
+przystających do $i$ modulo $3$. Wynikiem jest $DFS(root, 0)[0]$, gdzie
+$$DFS(v, m) = \sum_{u \in syn(v)} div(p, k, 3 - m) + DFS(u, m + sum(p,k))[(3
+- m - sum(p,k))\mod3].$$
+Krawędzie są oczywiście przechowywane w formie $(p,k)$, czyli indeks początku
+i końca. Funkcja $div$ zwraca liczbę podsłów przystających do $k$ modulo $3$ na
+przedziale. $DFS$ zwraca tablicę trójelementową zawierającą liczbę podsłów
+przystających do $i$ modulo $3$ w poddrzewie.
+Złożoność: $\MCALO(n)$.
 
 \zadanie{}
 Strukturą, jakiej użyjemy będzie drzewo AVL wzbogacone o następujące atrybuty:
