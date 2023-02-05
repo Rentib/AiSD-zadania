@@ -1,0 +1,84 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{enumerate}
+\usepackage{nopageno} % usuwa numery stron
+\usepackage[margin=.5in]{geometry} % zmniejsza margines
+\usepackage{fouriernc} % śmieszna czcionka
+\usepackage{algpseudocode}
+
+\newcommand{\MBBR}{\mathbb{R}}
+\newcommand{\MBBZ}{\mathbb{Z}}
+\newcommand{\MBBN}{\mathbb{N}}
+\newcommand{\MBBC}{\mathbb{C}}
+\newcommand{\MBBK}{\mathbb{K}}
+\newcommand{\MBBQ}{\mathbb{Q}}
+\newcommand{\MCALO}{\mathcal{O}}
+
+\newcounter{zadanie}
+\newcommand{\zadanie}{\addtocounter{zadanie}{1}\section*{Zadanie \arabic{zadanie}}}
+
+\title{Egzamin 2012/13}
+\author{Stanisław Bitner}
+\date{\today}
+
+\begin{document}
+\maketitle
+\zadanie{}
+Zauważmy, że liczby z przedziału $[0,n^3]$ można łatwo posortować w czasie
+liniowym. Wystarczy spojrzeć na nie jako na liczby w systemie $n$-arnym
+i posortować leksykograficznie.
+
+\subsection*{(a)}
+Sortujemy krawędzie pionowe najpierw po $x$ potem stabilnie po mniejszym $y$.
+Żeby sprawdzić, czy punkt $(x,y)$ leży na którejś z nich wystarczy wyszukać
+binarnie przedziału krawędzi o tym samym $x$. Następnie szukamy binarnie
+krawędzi zaczynającej się poniżej $y$ i sprawdzamy, czy zawiera ona w sobie ten
+punkt. Sprawdzamy to także dla $4$ krawędzi bezpośrednio pod tą znalezioną.
+Analogicznie dla krawędzi poziomych.
+
+\subsection*{(b)}
+Skalujemy współrzędne (osobno $x$ i $y$) na takie od $1$ do $2n+m$, gdzie $m$
+to liczba punktów. Sortujemy krawędzie pionowe i wrzucamy je do kubełków
+odpowiadającym ich $x$, przy czym, jeśli dwie krawędzi mają ten sam niższy $y$,
+to wstawiamy tę dłuższą z nich. Punkty tak samo. Przechodzimy po wszystkich
+kubełkach i gdy napotkamy jakiś punkt, to sprawdzamy 5 niżej zaczętych
+krawędzi, czy aby go nie zawierają. Następnie wyrzucamy z kubełka (listy) ten
+punkt. Analogicznie dla krawędzi poziomych.
+
+\subsection*{(c)}
+Skalujemy współrzędne jak poprzednio. Sortujemy punkty końcowe po $x$.
+Przechodzimy po nich od lewej do prawej. Gdy napotykamy lewy punkt poziomej
+krawędzi dodajemy $1$ do $t[y]$, gdy napotykamy prawy, to odejmujemy. Gdy
+napotykamy pionową krawędź, to do globalnego wyniku dodajemy sumę na przedziale
+$[y1,y2]$ w $t$. Sumę na przedziale obliczamy liniowo, ale długość krawędzi
+jest nie większa niż $5$, więc jest to stały wkład.
+
+\zadanie{}
+% TODO:
+
+\zadanie{}
+Dwa trójkąty stykają się co najwyżej jednym wierzchołkiem, inaczej tworzyłyby
+dwuspójną.
+
+\subsection*{(a), (b)}
+Tworzymy drzewo dwuspójnych. Kolorujemy liście takiego drzewa w dowolny sposób
+i odcinamy je. Powtarzamy ten krok, dopóki graf nie jest pusty.
+Złożoność: $\MCALO(n)$.
+
+\subsection*{(c)}
+Jeśli znamy liczbę trójkątów, to wynikiem jest $\frac{t}{3}$. Jeśli jej nie
+znamy, to wyznaczamy ich liczbę algorytmem szukania dwuspójnych w grafie.
+Działa, ponieważ z każdego trójkąta możemy w oczywisty sposób wziąć co najwyżej
+jedną krawędź, a zawsze możemy, ponieważ z trójkątów będących liśćmi wybieramy
+tę niezawierającą punktu artykulacji i odcinamy te trójkąty.
+Złożoność: $\MCALO(1)$ lub $\MCALO(n)$.
+
+\zadanie{}
+Dodajemy do kopca te elementy. Budujemy minimalny pełny kopiec binarny je
+zawierający i poprawiamy. Złożoność: $MCALO(k + \log^2{n})$.
+
+\end{document}
