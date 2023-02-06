@@ -68,28 +68,19 @@ Złożoność: $\MCALO(n)$.
 
 \zadanie{}
 \subsection*{(a)}
-\begin{algorithmic}
-\State $p \gets 0$
-\For{$i:=1..n-1$}
-  \If{$a[i] > a[i+1]$}
-    \State $swap(a[i], a[i+1])$
-    \If{$p=1$}
-      \State \Return
-    \EndIf
-    \State $p \gets 1$
-  \EndIf
-\EndFor
-\end{algorithmic}
-Wykonamy co najwyżej $n-1 = 2015$ porównań, co jest liczbą minimalną, bo może
-być $0$ inwersji i wtedy trzeba sprawdzić, że rzeczywiście cały ciąg jest
-posortowany.
+Robimy sortowanie przez wstawianie, ale jak wykonamy już $2$ zamiany, to więcej
+nie porównujemy. Wykonamy co najwyżej $n + 1 = 2017$ porównań, co jest liczbą
+minimalną, bo może być $0$ inwersji i wtedy trzeba sprawdzić, czy cały ciąg
+jest rzeczywiście posortowany.
 
 \subsection*{(b)}
-% TODO:
+Najmniejszy element nie może być dalej niż na $2017$-tej pozycji, gdyż inaczej
+tworzyłby on więcej niż $2016$ inwersji. Optymalne będzie więc znalezienie
+minimum spośród pierwszych $2017$ elementów, co daje nam $2016$ porównań.
 
 \zadanie{}
 Tworzymy drzewo sufiksowe dla słowa $x \cdot x \cdot \$ \cdot y \cdot \#$.
-Następnie szukamy wierzchołka o głębokości $|x|$, który jest przodkiem $\$$
+Następnie szukamy wierzchołka o głębokości co najmniej $|x|$, który jest przodkiem $\$$
 oraz $\#$. Jeśli taki wierzchołek istnieje, to w $y$ znajduje się pewne
 przesunięcie cykliczne $x$. Głębokość definiujemy jako sumaryczną wagę krawędzi
 na ścieżce z korzenia do wierzchołka.
