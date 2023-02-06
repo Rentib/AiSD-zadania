@@ -60,17 +60,16 @@ krawędzie, których waga została dodana w najlepszym wyniku.
 % TODO:
 
 \zadanie{}
+% TODO:
 
 \zadanie{}
-Konstruujemy \textit{ROT} dla $x$ i \textit{SUF} dla $y$, a także wyznaczamy
-KMR na słowie $x \cdot y$. Następnie dla każdego różnego okresu $x$
-reprezentowanego jako indeks $i$ ($c_i = x[i..n] \cdot x[1..i-1]$) szukamy
-binarnie pierwszego leksykograficznie większego sufiksu $y$. Słowa można
-porównywać za pomocą struktury KMR w czasie stałym. Jeżeli pierwsze $|x|$
-elementów tego sufiksu jest równe $x$, to za pomocą na przykład statycznego
-drzewa przedziałowego wyznaczamy najdłuższy spójny podciąg sufiksów na prawo od
-znalezionego, których $lcp \ge |x|$ i dodajemy jego długość do wyniku.
-Złożoność: $\MCALO((|x|+|y|)\log{(|x|+|y|)})$.
-% TODO:
+Tworzymy drzewo sufiksowe dla słowa $x \cdot x \cdot \# \cdot y \cdot \$$.
+Każdemu liściowi przypisujemy indeks początku reprezentowanego przez niego
+podsłowa. Dynamicznie obliczamy minimum i maksimum tych indeksów w poddrzewach
+wierzchołków. Wykonujemy algorytm DFS, gdy znajdziemy wierzchołek o głębokości
+-- liczonej w sumarycznej długości krawędzi -- nie mniejszej niż $|x|$ oraz
+taki, że $min \le 2 \cdot |x| < max$, to dodajemy $1$ do globalnego wyniku
+i nie schodzimy już do jego synów.
+Złożoność: $\MCALO(n)$.
 
 \end{document}
