@@ -32,7 +32,7 @@ Budujemy drzewo sufiksowe. Liściom w drzewie przypisujemy indeksy początku
 słowa w nich się kończącego. Dla każdego wierzchołka programowaniem dynamicznym
 wyznaczamy najmniejszy i największy indeks liścia oraz jego głębokość, czyli
 sumaryczną wagę krawędzi na jego ścieżce do korzenia. Słowo reprezentowane
-przez wierzchołek $v$ spełnia wymogi z treści, jeśli $max[v] - min[v] + 1 \ge
+przez wierzchołek $v$ spełnia wymogi z treści, jeśli $max[v] - min[v] \ge
 depth[v]$. Wystarczy więc znaleźć taki wierzchołek o największej głębokości
 i wynikiem będzie reprezentowane przez niego słowo.
 Złożoność: $\MCALO(n)$.
